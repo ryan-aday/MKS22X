@@ -10,7 +10,7 @@ public class Recursion{
 	System.out.println(d.fact(2));
 	System.out.println(d.fact(10));
 	System.out.println(d.fact(16));
-	//System.out.println(d.fact(17)); //fact bugs out after 16
+	System.out.println(d.fact(1000)); //fact bugs out after 16
 
 	//fib Tests
 	//System.out.println(d.fib(-1)); //Error test case	
@@ -40,8 +40,8 @@ public class Recursion{
 	if (n==1){
 	    return 1;
 	}
-	if (n>0 && n<17){
-	    return n*fact(n-1);
+	if (n>0){
+	    return (int)((double)n*(double)fact(n-1));
 	}
 	throw new IllegalArgumentException();
     }
