@@ -94,18 +94,26 @@ public class QueenBoard{
 	return true;
     }
      
-    //private boolean removeQueen(int r, int c)
-	
-    
-  
-
-  
   /**
   *@return false when the board is not solveable and leaves the board filled with zeros; 
   *        true when the board is solveable, and leaves the board in a solved state
   *@throws IllegalStateException when the board starts with any non-zero value
   */
-    // public boolean solve(){}
+     public boolean solve(){
+	 for (int r; r<board.length; r++){
+	     for (int c; c<board[0].length; c++){
+		 if (board[r][c]!=0){
+		     throw new IlllegalStateException();
+		 }
+	     }
+	 }
+	 
+	 
+	 for (int row=0; row<board.length; row++){
+	     int count=0
+	     if (addQueen(row, 0
+	 return false;
+     }
   
   /**
   *@return the number of solutions found, and leaves the board filled with only 0's
