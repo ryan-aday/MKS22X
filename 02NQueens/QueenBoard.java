@@ -162,7 +162,9 @@ public class QueenBoard{
 		if (solveHelp(col+1)){
 		    return true;
 		}
-	    }removeQueen(row, col);
+	    }else{
+		removeQueen(row, col);
+	    }
 	}return false;
     }
 	    
@@ -190,7 +192,9 @@ public class QueenBoard{
 		if (solveHelp(col+1)){
 		    count++;
 		}
-	    }removeQueen(row, col);
+	    }else{
+		removeQueen(row, col);
+	    }
 	}work=true;
 
 	if (col>=board.length || work==true){
@@ -198,7 +202,7 @@ public class QueenBoard{
 		for (int c=0; c<board.length; c++){
 		    if (board[r][c]==1){
 			count++;
-		    }
+		    }board[r][c]=0;
 		}
 	    }
 	}
