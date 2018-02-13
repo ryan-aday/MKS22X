@@ -1,6 +1,6 @@
 public class QueenBoard{
     public static void main(String[]args){
-	QueenBoard a=new QueenBoard(69);
+	QueenBoard a=new QueenBoard(6);
 	System.out.println(a.toString());
 	//a.addQueen(0,0);
    	//System.out.println(a.toString());
@@ -13,7 +13,9 @@ public class QueenBoard{
    	System.out.println(a.toString());
 	*/
 	System.out.println(a.solve());
+	System.out.println(a.toString());
 	System.out.println(a.countSolutions());
+	System.out.println(a.toString());
     }
     
     private int[][] board;
@@ -60,6 +62,27 @@ public class QueenBoard{
 	if(board[r][c]<0){
 	    return false;
 	}
+	if (r>0 && r<board.length-1){
+	    if (c>0 && c<board.length-1){
+		if (board[r-1][c]==1 ||
+		    board[r+1][c]==1 ||
+		    board[r][c-1]==1 ||
+		    board[r][c+1]==1 ||
+		    board[r-1][c-1]==1 ||
+		    board[r+1][c+1]==1 ||
+		    board[r-1][c+1]==1 ||
+		    board[r+1][c-1]==1){
+		    return false;
+		}
+	    }
+	}
+
+	for (int check=0; check<board.length; check++){
+	    if (board[r][check]==1 || board[check][c]==1){
+		return false;
+	    }
+	}
+
 	board[r][c]=1;
 	
 	for (int col=r; col<board.length; col++){
@@ -110,9 +133,26 @@ public class QueenBoard{
   *@throws IllegalStateException when the board starts with any non-zero value
   */
     public boolean solve(){
-	return solveHelp(0);
+	 for (int r=0; r<board.length; r++){
+	     for (int c=0; c<board.length; c++){
+		 if (board[r][c]!=0){
+		     throw new IllegalStateException();
+		 }
+	     }
+	 }
+	 if (solveHelp(0)){
+	     for (int ro=0; ro<board.length; ro++){
+		 for (int co=0; co<board.length; co++){
+		     board[ro][co]=0;
+		 }
+	     }return true;
+	 }for (int row=0; row<board.length; row++){
+	     for (int col=0; col<board.length; col++){
+		 board[row][col]=0;
+	     }
+	 }return false;
     }
-
+    
     public boolean solveHelp(int col){
 	if (col>=board.length){
 	    return true;
@@ -132,23 +172,44 @@ public class QueenBoard{
   *@throws IllegalStateException when the board starts with any non-zero value
   */
      public int countSolutions(){
+	 for (int r=0; r<board.length; r++){
+	     for (int c=0; c<board.length; c++){
+		 if (board[r][c]!=0){
+		     throw new IllegalStateException();
+		 }
+	     }
+	 }
 	 return countHelp(0,0);
      }
 
-    public int countHelp(int col, int count){
-	for (int r=0; r<board.length; r++){
-	    for (int c=0; c<board.length; c++){
-		if (board[r][c]==0 &&
-	
-	
+    public int countHelp(int col, int count){	
+	boolean work=false;
+
 	for (int row=0; row<board.length; row++){
 	    if (addQueen(row, col)){
 		if (solveHelp(col+1)){
 		    count++;
 		}
 	    }removeQueen(row, col);
-	}return count;
+	}work=true;
+
+	if (col>=board.length || work==true){
+	    for (int r=0; r<board.length; r++){
+		for (int c=0; c<board.length; c++){
+		    if (board[r][c]==1){
+			count++;
+		    }
+		}
+	    }
+	}
+	return count;
     }
 }
     
+
+
+
+
+
+
 	    
