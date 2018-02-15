@@ -1,6 +1,6 @@
 public class QueenBoard{
     public static void main(String[]args){
-	QueenBoard a=new QueenBoard(3);
+	QueenBoard a=new QueenBoard(4);
 	a.addQueen(1,1);
 	System.out.println(a.toString());
 	a.addQueen(1,0);
@@ -112,7 +112,7 @@ public class QueenBoard{
 	int dc=c;
 	for (int dr=r+1; dr<board.length; dr++){
 	    dc++;
-	    if (dc>=board.length){
+	    if (dc>=board.length-1){
 		if(board[dr][dc]!=1){
 		    board[dr][dc]=board[dr][dc]-1;
 		}else{}
@@ -120,7 +120,7 @@ public class QueenBoard{
 	}
 
 	int uc=c;
-	for (int ur=r-1; ur>-1; ur--){
+	for (int ur=r+1; ur<board.length; ur++){
 	    uc--;
 	    if (uc>=0){
 		if(board[ur][uc]!=1){
@@ -132,7 +132,7 @@ public class QueenBoard{
 	int ddc=c;
 	for (int ddr=r+1; ddr<board.length; ddr++){
 	    ddc--;
-	    if (dc>=board.length){
+	    if (ddc>=board.length-1){
 		if(board[ddr][ddc]!=1){
 		    board[ddr][ddc]=board[ddr][ddc]-1;
 		}else{}
@@ -140,9 +140,9 @@ public class QueenBoard{
 	}
 
 	int uuc=c;
-	for (int uur=r-1; uur>-1; uur--){
+	for (int uur=r+1; uur<board.length; uur++){
 	    uuc++;
-	    if (uc>=0){
+	    if (uuc>=0){
 		if(board[uur][uuc]!=1){
 		    board[uur][uuc]=board[uur][uuc]-1;
 		}
@@ -187,7 +187,7 @@ public class QueenBoard{
 	int dc=c;
 	for (int dr=r+1; dr<board.length; dr++){
 	    dc++;
-	    if (dc>=board.length){
+	    if (dc>=0){
 		if(board[dr][dc]!=1){
 		    board[dr][dc]=board[dr][dc]+1;
 		}else{}
@@ -196,7 +196,7 @@ public class QueenBoard{
 
 	int uc=c;
 	for (int ur=r-1; ur>-1; ur--){
-	    uc--;
+	    uc++;
 	    if (uc>=0){
 		if(board[ur][uc]!=1){
 		    board[ur][uc]=board[ur][uc]+1;
@@ -205,19 +205,19 @@ public class QueenBoard{
 	}
 	
 	int ddc=c;
-	for (int ddr=r+1; ddr<board.length; ddr++){
+	for (int ddr=c+1; ddr<board.length; ddr++){
 	    ddc--;
-	    if (dc>=board.length){
+	    if (ddc>=board.length-1){
 		if(board[ddr][ddc]!=1){
 		    board[ddr][ddc]=board[ddr][ddc]+1;
 		}else{}
 	    }
 	}
 
-	int uuc=c;
-	for (int uur=r-1; uur>-1; uur--){
-	    uuc++;
-	    if (uc>=0){
+	int uur=r;
+	for (int uuc=r+1; uuc<board.length; uuc++){
+	    uur++;
+	    if (uuc>=0){
 		if(board[uur][uuc]!=1){
 		    board[uur][uuc]=board[uur][uuc]+1;
 		}
