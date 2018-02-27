@@ -19,7 +19,45 @@ public class Maze{
          throw a FileNotFoundException or IllegalStateException
     */
     public Maze(String filename){
-        //COMPLETE CONSTRUCTOR
+	try{
+	    File text = new File("data1.dat");// can be a path like: "/full/path/to/file.txt" 
+	    //inf stands for the input file
+	    Scanner inf = new Scanner(text);
+       
+
+	    int rcount=0;
+	    int ccount=0;
+
+	    int row=-1;
+	    String ch="";
+
+	    while (inf.hasNextLine()){
+		rcount++;
+		ch=inf.nextLine();
+	    }
+	    ccount=ch.length();
+	    maze=new char[rcount][ccount];
+	    System.out.println(maze.length+" "+maze[0].length);
+
+	    
+	    while(inf.hasNextLine()){
+		row++;
+		String line = inf.nextLine();
+		for (int col=0; col<maze[0].length; col++){
+		    if (line.charAt(col)=='#' || line.charAt(col)=='S' || line.charAt(col)=='E'){
+			maze[row][col]=line.charAt(col);
+		    }
+		    System.out.println(line);//hopefully you can do other things with the line
+		}
+	    } 
+	}
+	
+
+	catch (FileNotFoundException e){
+	    e.printStackTrace();
+	}
+	    
+
     }
     
     private void wait(int millis){
@@ -51,6 +89,7 @@ public class Maze{
 
             //and start solving at the location of the s.
             //return solve(???,???);
+	return -1;
     }
 
     /*

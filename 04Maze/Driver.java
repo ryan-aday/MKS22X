@@ -7,6 +7,6 @@ public class Driver{
         f.setAnimate(true);
         f.solve();
 
-        System.out.println(f);
+        //System.out.println(f);
     }
 }
