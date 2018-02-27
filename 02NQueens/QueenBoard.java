@@ -2,24 +2,24 @@ public class QueenBoard{
     public static void main(String[]args){
 	QueenBoard a=new QueenBoard(4);
 	System.out.println(a.toString());
-		
-	a.addQueen(1,1);
+	/*		
+	//	a.addQueen(0,0);
 	System.out.println(a.toString());
-	a.addQueen(1,0);
+	a.addQueen(0,1);
    	System.out.println(a.toString());
 	
-	a.removeQueen(1,1);
+	a.removeQueen(0,1);
    	System.out.println(a.toString());
-	/*	a.addQueen(0,0);
+	a.addQueen(3,1);
    	System.out.println(a.toString());
-	a.removeQueen(0,0);
+	a.removeQueen(3,1);
    	System.out.println(a.toString());
 	
 	a.removeQueen(0,0);
    	System.out.println(a.toString());
-	*/
-	//System.out.println(a.solve());
-	//	System.out.println(a.toString());
+		*/
+	System.out.println(a.solve());
+	System.out.println(a.toString());
 	//	System.out.println(a.countSolutions());
 	//	System.out.println(a.toString());
     }
@@ -127,7 +127,7 @@ public class QueenBoard{
 	int uuc=c;
 	for (int uur=r-1; uur>-1; uur--){
 	    uuc++;
-	    if (uuc>-1){
+	    if (uuc<board.length){
 		if(board[uur][uuc]!=1){
 		    board[uur][uuc]=board[uur][uuc]-1;
 		}
@@ -202,7 +202,7 @@ public class QueenBoard{
 	int uuc=c;
 	for (int uur=r-1; uur>-1; uur--){
 	    uuc++;
-	    if (uuc>-1){
+	    if (uuc<board.length){
 		if(board[uur][uuc]!=1){
 		    board[uur][uuc]=board[uur][uuc]+1;
 		}
@@ -224,6 +224,8 @@ public class QueenBoard{
 		 }
 	     }
 	 }
+
+	 return solveHelp(0,0);
 	 /*	 if (-1*(countSolutions())>0){
 	     System.out.println(toString());
 	     for (int ro=0; ro<board.length; ro++){
@@ -237,30 +239,30 @@ public class QueenBoard{
 	     }
 	 }return false;
 	 */
-
-	 return solveHelp(0, 0);
     }
     
-    public boolean solveHelp(int col, int counter){
+    public boolean solveHelp(int row, int col){
 	if (col>=board.length){
-	    //return true;
+	    return true;
 	}
-	for (int row=0; row<board.length; row++){
-	    if (addQueen(row, col)){
-		if (solveHelp(col+1, counter+1)){
-		    counter++;
-		    return true;
+
+	for (int ro=row; ro<board.length; ro++){
+	    if (addQueen(ro, col)){
+		int c=col+1;
+		//c++;
+		//for (int ro=row; ro<board.length; ro++){
+		for (int r=0; r<board.length; r++){
+		    if (board[r][c]==0){
+			addQueen(r, c);
+			solveHelp(r, c);
+		    }
 		}
-	    }else if(row<board.length){
-		removeQueen(row, col);
 	    }else{
-		return false;
+		removeQueen(ro, col);
 	    }
 	}
-	if (col==board.length-1 && counter!= board.length){
-	    return false;
-	}
-	return true;
+	
+	return false;
     }
 	    
   
