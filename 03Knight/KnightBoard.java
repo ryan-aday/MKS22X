@@ -82,6 +82,40 @@ public class KnightBoard{
 	return false;
     }
 
+    private int sols;
+    public int countSolutions(int row, int col){
+        if (row<0 ||
+	    col<0 || 
+	    row>=board.length ||
+	    col >= board[0].length){
+	    throw new IllegalArgumentException();
+	}
+	for (int r=0; r<board.length; r++){
+	    for (int c=0; c<board[r].length;c++){
+		if (board[r][c]!=0){
+		    throw new IllegalStateException();	    
+		}
+	    }
+	}
+	sols = 0;
+	sols = helperCount(row,col,1);
+	board[row][col] = 0;
+	return sols;
+    }
 
-    
+    public int helperCount(int row,int col, int count){
+	if (count == (rmax * cmax)){
+	    sols++;
+	    return sols;
+	}
+	for (int r=0 ; r<xcor.length;r++){
+	    board[row][col]=count;
+	    try {
+		if (board[row+xcor[r]][col+ycor[r]]==0){
+		    helperCount(row+xcor[r],col+ycor[r],count++);
+		    board[row+xcor[r]][col+ycor[r]]=0;
+		}
+	    } catch (ArrayIndexOutOfBoundsException e){}
+	}return sols;
+    }
 }
