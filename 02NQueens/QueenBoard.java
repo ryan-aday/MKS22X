@@ -225,7 +225,7 @@ public class QueenBoard{
 	     }
 	 }
 
-	 return solveHelp(0,0);
+	 return solveHelp(0);
 	 /*	 if (-1*(countSolutions())>0){
 	     System.out.println(toString());
 	     for (int ro=0; ro<board.length; ro++){
@@ -241,24 +241,24 @@ public class QueenBoard{
 	 */
     }
     
-    public boolean solveHelp(int row, int col){
+    public boolean solveHelp(int col){
 	if (col>=board.length){
 	    return true;
 	}
 
-	for (int ro=row; ro<board.length; ro++){
-	    if (addQueen(ro, col)){
+	for (int row=0; row<board.length; row++){
+	    if (addQueen(row, col)){
 		int c=col+1;
 		//c++;
 		//for (int ro=row; ro<board.length; ro++){
 		for (int r=0; r<board.length; r++){
 		    if (board[r][c]==0){
 			addQueen(r, c);
-			solveHelp(r, c);
+			solveHelp(r);
 		    }
 		}
 	    }else{
-		removeQueen(ro, col);
+		removeQueen(row, col);
 	    }
 	}
 	
