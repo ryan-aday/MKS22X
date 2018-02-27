@@ -47,25 +47,41 @@ public class KnightBoard{
 	return layout;
     }
 
-    
-    private boolean addKnight(int r, int c, int counter){
-	if (r>=board.length || c>=board[r].length){
-	    throw new IllegalStateException();
+    public boolean solve(int row, int col){
+        if (row<0 ||
+	    col<0 || 
+	    row>=board.length ||
+	    col >= board[0].length){
+	    throw new IllegalArgumentException();
 	}
-	if(board[r][c]!=0){
-	    return false;
-	}
-	
-	if((board[r+1][c+2]==0 && r+1<board.length && c+2<board[0].length) ||
-	   board[r+2][c+1]==0 ||
-	   board[r+2][c-1]==0 ||
-	   board[r+1][c-2]==0 ||
-	   board[r-1][c-2]==0 ||
-	   board[r-2][c-1]==0 ||
-	   board[r-2][c+1]==0 ||
-	   board[r-1][c+2]==0){
-	    board[r][c]=counter;
-	    return true;
-	}return false;
+	for (int r=0; r<board.length; r++){
+	    for (int c=0; c<board[r].length;c++){
+		if (board[r][c]!=0){
+		    throw new IllegalStateException();	    
+		}
+	    }
+	}return solveHelp(row, col, 1);
     }
+    public boolean solveHelp(int row,int col,int count){
+	if (count==(rmax*cmax)){
+	    board[row][col] = count;
+	    return true;
+	}
+	for (int r=0; r<xcor.length; r++){
+	    board[row][col] = count;
+	    try {
+		if (board[row + xcor[r]][col + ycor[r]]==0){
+		    if (solveHelp(row+xcor[r], col+ycor[r], count++)){
+			return true;
+		    }
+		    board[row+xcor[r]][col+ycor[r]]=0;
+		}
+	    }catch(ArrayIndexOutOfBoundsException e){}
+	}
+	board[row][col] = count;
+	return false;
+    }
+
+
+    
 }
