@@ -1,0 +1,114 @@
+public class KnightBoard{
+    public static void main(String[]args){
+        KnightBoard a=new KnightBoard(6);
+	System.out.println(a.toString());
+
+    }
+    
+    private int[][] board;
+    
+    public KnightBoard(int rows, int cols){
+	board=new int[rows][cols];
+	for(int row=0; row<rows; row++){
+	    for(int col=0; col<cols; col++){
+		board[row][col]=0;
+	    }
+	}
+    }
+    
+    /**
+     *@return The output string formatted as follows:
+     *All numbers that represent queens are replaced with 'Q' 
+     *all others are displayed as underscores '_'
+     *There are spaces between each symbol:  
+     *Q _ _ _
+     *_ _ Q _
+     * etc.
+     */
+    public String toString(){
+	int ln=board.length;
+	String ro="";
+	for (int row=0; row<ln; row++){
+	    ro=ro+"\n";
+	    for (int col=0; col<ln; col++){
+		if (board[row][col]<10){
+		    ro=+" "+board[row][col];
+		}else{
+		    ro=ro+" "+board[row][col];
+		}
+	    }
+      }return ro;
+    }
+    
+    private boolean addKnight(int r, int c){
+	if (r>=board.length || c>=board.length){
+	    throw new IllegalStateException();
+	}
+	if(board[r][c]<0){
+	    return false;
+	}
+	if (r>0 && r<board.length-1){
+	    if (c>0 && c<board.length-1){
+		if (board[r-1][c]==1 ||
+		    board[r+1][c]==1 ||
+		    board[r][c-1]==1 ||
+		    board[r][c+1]==1 ||
+		    board[r-1][c-1]==1 ||
+		    board[r+1][c+1]==1 ||
+		    board[r-1][c+1]==1 ||
+		    board[r+1][c-1]==1){
+		    return false;
+		}
+	    }
+	}
+
+	for (int check=0; check<board.length; check++){
+	    if (board[r][check]==1 || board[check][c]==1){
+		return false;
+	    }
+	}
+
+	board[r][c]=1;
+	
+	for (int col=r; col<board.length; col++){
+	    if(board[r][col]!=1){
+		board[r][col]=board[r][col]-1;
+	    }
+	}
+
+	int dc=c;
+	for (int dr=r+1; dr<board.length; dr++){
+	    dc++;
+	    if (dc>=board.length){
+	    }else if(board[dr][dc]!=1){
+		board[dr][dc]=board[dr][dc]-1;
+	    }else{}
+	}return true;
+    }
+   
+    private boolean removeQueen(int r, int c){
+	if (r>board.length || c>board.length){
+	    throw new IllegalStateException();
+	}
+	if (board[r][c]<1){
+	    return false;
+	}
+	board[r][c]=0;
+	
+	for (int col=r; col<board.length; col++){
+	    if(board[r][col]<0){
+		board[r][col]=board[r][col]+1;
+	    }
+	}
+	
+	int dc=c;
+	for (int dr=r+1; dr<board.length; dr++){
+	    dc++;
+	    if (dc>=board.length){
+	    }else if(board[dr][dc]<0){
+		board[dr][dc]=board[dr][dc]+1;
+	    }else{}
+	}return true;
+
+    }
+}
