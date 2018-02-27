@@ -1,6 +1,6 @@
 public class QueenBoard{
     public static void main(String[]args){
-	QueenBoard a=new QueenBoard(4);
+	QueenBoard a=new QueenBoard(11);
 	System.out.println(a.toString());
 	/*		
 	//	a.addQueen(0,0);
@@ -20,19 +20,22 @@ public class QueenBoard{
 		*/
 	//System.out.println(a.solve());
 	//System.out.println(a.toString());
-	System.out.println(a.countSolutions());
-	System.out.println(a.toString());
+	//System.out.println(a.countSolutions());
+	//System.out.println(a.toString());
     }
     
     private int[][] board;
-    
+    private int num;
+
     public QueenBoard(int size){
+	num=0;
 	board=new int[size][size];
 	for(int row=0; row<size; row++){
 	    for(int col=0; col<size; col++){
 		board[row][col]=0;
 	    }
 	}
+	
     }
     
     /**
@@ -255,10 +258,10 @@ public class QueenBoard{
 		     throw new IllegalStateException();
 		 }
 	     }
-	 }return countHelp(0,0,0);
+	 }return countHelp(0,0);
      }
 
-    public int countHelp(int row, int col, int num){	
+    public int countHelp(int row, int col){	
 	 if (col==board.length){
 	     num++;
 	     return num;
@@ -266,30 +269,9 @@ public class QueenBoard{
 	     
 	 for (int r=0; r<board.length; r++){
  	    if (addQueen(r, col)){
-		countHelp(r, col+1, num);
+		countHelp(r, col+1);
 		removeQueen(r, col);
 	    }
 	 }return num;
     }
-    /*
-	//work=true;
-	//System.out.println(toString());
-
-	/*if (col>=board.length || work==true){
-	    for (int r=0; r<board.length; r++){
-		for (int c=0; c<board.length; c++){
-		    if (board[r][c]==1){
-			count++;
-		    }board[r][c]=0;
-		} 
-	    }
-	}
-	
-	//System.out.println(toString());
-	if (count>=board.length){
-	    return count;
-	}return count;
-    }
-	*/
-   
 }
