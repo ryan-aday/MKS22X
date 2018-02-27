@@ -18,10 +18,10 @@ public class QueenBoard{
 	a.removeQueen(0,0);
    	System.out.println(a.toString());
 		*/
-	System.out.println(a.solve());
+	//System.out.println(a.solve());
+	//System.out.println(a.toString());
+	System.out.println(a.countSolutions());
 	System.out.println(a.toString());
-	//	System.out.println(a.countSolutions());
-	//	System.out.println(a.toString());
     }
     
     private int[][] board;
@@ -249,34 +249,29 @@ public class QueenBoard{
   *@throws IllegalStateException when the board starts with any non-zero value
   */
     public int countSolutions(){	 
-	for (int r=0; r<board.length; r++){
-	    for (int c=0; c<board.length; c++){
-		if (solveHelp(r, c)){
-		    throw new IllegalStateException();
-		}
-	    }
-	}return countHelp(0,0,0);
+	 for (int r=0; r<board.length; r++){
+	     for (int c=0; c<board.length; c++){
+		 if (board[r][c]!=0){
+		     throw new IllegalStateException();
+		 }
+	     }
+	 }return countHelp(0,0,0);
      }
 
     public int countHelp(int row, int col, int num){	
-	 if (col=board.length){
+	 if (col==board.length){
 	     num++;
 	     return num;
-
 	 }
 	     
-
-	for (int row=0; row<board.length; row++){
- 	    if (addQueen(row, col)){
-		if (solveHelp(col+1)){
-		    count++;
-		}
-	    }else{
-		removeQueen(row, col);
-		count--;
+	 for (int r=0; r<board.length; r++){
+ 	    if (addQueen(r, col)){
+		countHelp(r, col+1, num);
+		removeQueen(r, col);
 	    }
-	}
-    */
+	 }return num;
+    }
+    /*
 	//work=true;
 	//System.out.println(toString());
 
@@ -296,5 +291,5 @@ public class QueenBoard{
 	}return count;
     }
 	*/
-    }
+   
 }
