@@ -224,68 +224,47 @@ public class QueenBoard{
 		 }
 	     }
 	 }
-
+	 if (board.length==0){
+	     return true;
+	 }
 	 return solveHelp(0, 0);
-	 /*	 if (-1*(countSolutions())>0){
-	     System.out.println(toString());
-	     for (int ro=0; ro<board.length; ro++){
-		 for (int co=0; co<board.length; co++){
-		     board[ro][co]=0;
-		 }
-	     }return true;
-	 }for (int row=0; row<board.length; row++){
-	     for (int col=0; col<board.length; col++){
-		 board[row][col]=0;
-	     }
-	 }return false;
-	 */
     }
     
-    public boolean solveHelp(int r, int c){
-        if (c == board.length){
+    public boolean solveHelp(int row, int col){
+        if (col == board.length){
             return true;
         }
-        for (int row = 0; row < board.length;row++){
-            if (addQueen(row,c)){
-                if (solveHelp(r,c + 1)){
+        for (int r = 0; r < board.length; r++){
+            if (addQueen(r, col)){
+                if (solveHelp(r, col+1)){
                     return true;
                 }
-                removeQueen(row,c);
+                removeQueen(r,col);
             }
-        }
-        return false;
+        }return false;
     }
 		    
-
-
-
-	    
-  
   /**
   *@return the number of solutions found, and leaves the board filled with only 0's
   *@throws IllegalStateException when the board starts with any non-zero value
   */
-    /*
-    public int countSolutions(){
-	 /*if (board.length==1 || board.length==2){
-	     return board.length;
-	 }
-	 
-	 int counter=0;
-	 
-	 for (int r=0; r<board.length; r++){
-	     for (int c=0; c<board.length; c++){
-		 if (solveHelp(r, c)){
-		     throw new IllegalStateException();
-		 }
-	     }
-	 }
-	 return countHelp(0,0);
+    public int countSolutions(){	 
+	for (int r=0; r<board.length; r++){
+	    for (int c=0; c<board.length; c++){
+		if (solveHelp(r, c)){
+		    throw new IllegalStateException();
+		}
+	    }
+	}return countHelp(0,0,0);
      }
-    */
 
-    /* public int countHelp(int col, int count){	
-	//boolean work=false;
+    public int countHelp(int row, int col, int num){	
+	 if (col=board.length){
+	     num++;
+	     return num;
+
+	 }
+	     
 
 	for (int row=0; row<board.length; row++){
  	    if (addQueen(row, col)){
@@ -317,4 +296,5 @@ public class QueenBoard{
 	}return count;
     }
 	*/
+    }
 }
