@@ -23,8 +23,7 @@ public class Maze{
 	    File text = new File("data1.dat");// can be a path like: "/full/path/to/file.txt" 
 	    //inf stands for the input file
 	    Scanner inf = new Scanner(text);
-       
-
+	    Scanner actual = new Scanner(text);
 	    int rcount=0;
 	    int ccount=0;
 
@@ -37,19 +36,25 @@ public class Maze{
 	    }
 	    ccount=ch.length();
 	    maze=new char[rcount][ccount];
+	    
 	    System.out.println(maze.length+" "+maze[0].length);
 
-	    
-	    while(inf.hasNextLine()){
+	    while (actual.hasNextLine()){
 		row++;
-		String line = inf.nextLine();
-		for (int col=0; col<maze[0].length; col++){
-		    if (line.charAt(col)=='#' || line.charAt(col)=='S' || line.charAt(col)=='E'){
-			maze[row][col]=line.charAt(col);
-		    }
-		    System.out.println(line);//hopefully you can do other things with the line
+		String line=actual.nextLine();
+		for (int count=0; count<line.length(); count++){
+		    maze[row][count]=line.charAt(count);
 		}
-	    } 
+	    }
+	    
+	    String test="";
+	    for (int rw=0; rw<maze.length; rw++){
+		test=test+"\n";
+		for (int col=0; col<maze[rw].length; col++){
+		    test=test+maze[rw][col];
+		}
+	    }
+	    System.out.println(test);
 	}
 	
 
@@ -83,8 +88,18 @@ public class Maze{
       Since the constructor exits when the file is not found or is missing an E or S, we can assume it exists.
     */
     public int solve(){
-            //find the location of the S. 
-
+            //find the location of the S.
+	int startX, startY;
+	
+	for (int row=0; row<maze.length; row++){
+	    for (int col=0; col<maze[row.length]; col++){
+		if (maze[row][col]=='S'){
+		    startX=row;
+		    startY=col;
+		}
+	    }
+	}
+	
             //erase the S
 
             //and start solving at the location of the s.
