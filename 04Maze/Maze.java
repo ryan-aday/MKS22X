@@ -137,12 +137,14 @@ public class Maze{
     }    
 
    public static void main(String[]args){
-        Maze f;
+       // Maze f;
 	//	try {
+	/*
 	    f = new Maze("Maze1.txt");//true animates the maze.
 	    f.setAnimate(true);
 	    System.out.println(f.solve());
 	    //} catch (FileNotFoundException e){}
+	    */
    }
 }
 
