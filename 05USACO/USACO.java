@@ -3,7 +3,7 @@ import java.io.*;
 
 public class USACO{
     public static void main(String[] args){
-	System.out.println(silver("ctravel.1.in")); 
+	//System.out.println(silver("ctravel.2.in")); 
 	
     }
     
@@ -13,10 +13,10 @@ public class USACO{
 	    Scanner in = new Scanner(f);
 	    String line = in.nextLine();
 	    String[] array = line.split(" ");
-	    int row = Integer.parseInt(ary[0]);
-	    int col = Integer.parseInt(ary[1]);
-	    int water = Integer.parseInt(ary[2]);
-	    int moves = Integer.parseInt(ary[3]);
+	    int row = Integer.parseInt(array[0]);
+	    int col = Integer.parseInt(array[1]);
+	    int water = Integer.parseInt(array[2]);
+	    int moves = Integer.parseInt(array[3]);
 	    int[][] board = new int[row][col];
 	    for (int r = 0; r<row; r++){
 		for (int c = 0;c < col;c++){
@@ -38,12 +38,12 @@ public class USACO{
 	    catch (ArrayIndexOutOfBoundsException e){}
 	    
 	    //stamp(rS,cS,board,max,stomp);
-	    numOfMoves -- 1;
+	    moves--;
 	    }
 	    
 	    int totalD = 0;
-	    for (int rr==0; rr<board.length; rr++){
-		for (int cc=0; cc<board[i].length; cc++){
+	    for (int rr=0; rr<board.length; rr++){
+		for (int cc=0; cc<board[rr].length; cc++){
 		    int w = water-board[rr][cc];
 		    if (w>0){
 			totalD+=w;
@@ -59,7 +59,7 @@ public class USACO{
 
     public static String toString(int[][] board){
 	String line = "";
-	for (int row=0; row<b.length; row++){
+	for (int row=0; row<board.length; row++){
 	    for (int col=0; col<board[row].length;col++){
 		line=line+board[row][col]+" ";
 	    }
@@ -72,8 +72,8 @@ public class USACO{
 			     int max, int stampNum){
 	for (int r = 0; r < 3; r++){
 	    for (int c=0; c<3; c++){
-		if (board[row+i][col+c]>(max - stampNum)){
-		    board[row+i][col+c]=(max - stampNum);
+		if (board[row+r][col+c]>(max - stampNum)){
+		    board[row+r][col+c]=(max - stampNum);
 		}
 	    }
 	}
@@ -97,7 +97,7 @@ public class USACO{
 		}
 	    }
 
-	    String[] coor = in.nextLine().split(" ");
+	    String[] coor = inf.nextLine().split(" ");
 	    int sr = Integer.parseInt(coor[0]);
 	    int sc = Integer.parseInt(coor[1]);
 	    int er = Integer.parseInt(coor[2]);
@@ -132,6 +132,7 @@ public class USACO{
 		    for (int c=0; c<col; c++){
 			try{
 			    if (newHelp[r][c]!=-1){
+				newHelp[r][c]=sumNum(r, c, oldHelp);
 			    }
 			}catch (ArrayIndexOutOfBoundsException e){
 			}
@@ -145,6 +146,23 @@ public class USACO{
 	return -1;
     }
     
+    private static int sumNum(int r, int c, int[][] board){
+	int[] row = new int[]{0,0,1,-1};
+	int[] col = new int[]{-1,1,0,0};
+        int sum=0;
+	for (int count=0; count<4; count++){
+	    if (isValid(r+row[count], c+col[count], board)){
+		sum+=board[r+ row[count]][c + col[count]];
+	    }
+	}
+        return sum;
+    }
     
-
+    private static boolean isValid(int r, int c, int[][] board){
+     return !(r<0|| 
+	      r>=board.length|| 
+	      c<0|| 
+	      c>=board[0].length|| 
+	      board[r][c] == -1);
+    }   
 }
