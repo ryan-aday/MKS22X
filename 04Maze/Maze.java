@@ -30,10 +30,27 @@ public class Maze{
 	xMoves = new int[] {0,0,1,-1};
 	yMoves = new int[] {1,-1,0,0};
 	File f = new File(file);
-	Scanner in = new Scanner(f);
+	Scanner input = new Scanner(f);
+
 	while (in.hasNext()){
-	    String line = in.nextLine();
-	    row += 1;
-	    col = line.length();
+	    String line = input.nextLine();
+	    row++;
+	    col=line.length();
 	}
 	
+	maze = new char[row][col];
+	Scanner output = new Scanner(f);
+	int r=0;
+	while (output.hasNext()){
+	    String outLine = out.nextLine();
+	    for (int c = 0;c < outLine.length();c++){
+		if (oLine.charAt(c) == 'S'){
+		    Sx=c;
+		    Sy=r;
+		}
+		Maze[r][c] = outLine.charAt(c);
+	    }
+	    r++;
+	}
+    }
+}
