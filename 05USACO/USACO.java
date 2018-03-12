@@ -23,6 +23,24 @@ public class USACO{
 		    board[r][c] = Integer.parseInt(in.next());
 		}
 	    }
+	    while (moves!=0){
+	    int rS = Integer.parseInt(in.next()) - 1;
+	    int cS = Integer.parseInt(in.next()) - 1;
+	    int stomp = Integer.parseInt(in.next());
+	    int max = 0;
+	    try {
+		for (int ro=0; ro<3; ro++){
+		    for (int co=0; co<3; co++){
+			max = Math.max(board[rS+ro][cS+co],max);
+		    }
+		}
+	    } 
+	    catch (ArrayIndexOutOfBoundsException e){}
+	    
+	    
+	    numOfMoves -= 1;
+	}
+
 	}
 	
     public static int silver(String filename){
