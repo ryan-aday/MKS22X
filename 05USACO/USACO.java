@@ -8,9 +8,23 @@ public class USACO{
     }
     
     public static int bronze(String filename){
-	return -1;
-    }
-
+	File f = new File(filename);
+	try {
+	    Scanner in = new Scanner(f);
+	    String line = in.nextLine();
+	    String[] array = line.split(" ");
+	    int row = Integer.parseInt(ary[0]);
+	    int col = Integer.parseInt(ary[1]);
+	    int water = Integer.parseInt(ary[2]);
+	    int moves = Integer.parseInt(ary[3]);
+	    int[][] board = new int[row][col];
+	    for (int r = 0; r<row; r++){
+		for (int c = 0;c < col;c++){
+		    board[r][c] = Integer.parseInt(in.next());
+		}
+	    }
+	}
+	
     public static int silver(String filename){
 	
         File text = new File(filename);
