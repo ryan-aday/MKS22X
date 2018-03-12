@@ -57,7 +57,27 @@ public class USACO{
 	return -1;
     }
 
-
+    public static String toString(int[][] board){
+	String line = "";
+	for (int row=0; row<b.length; row++){
+	    for (int col=0; col<board[row].length;col++){
+		line=line+board[row][col]+" ";
+	    }
+	    line+="\n";
+	}
+	return line;
+    }
+    
+    public static void stamp(int row, int col, int[][] board,
+			     int max, int stampNum){
+	for (int r = 0; r < 3; r++){
+	    for (int c=0; c<3; c++){
+		if (board[row+i][col+c]>(max - stampNum)){
+		    board[row+i][col+c]=(max - stampNum);
+		}
+	    }
+	}
+    }
 
 	
     public static int silver(String filename){
