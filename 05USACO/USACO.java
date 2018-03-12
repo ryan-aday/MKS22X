@@ -37,11 +37,28 @@ public class USACO{
 	    } 
 	    catch (ArrayIndexOutOfBoundsException e){}
 	    
+	    //stamp(rS,cS,board,max,stomp);
+	    numOfMoves -- 1;
+	    }
 	    
-	    numOfMoves -= 1;
+	    int totalD = 0;
+	    for (int rr==0; rr<board.length; rr++){
+		for (int cc=0; cc<board[i].length; cc++){
+		    int w = water-board[rr][cc];
+		    if (w>0){
+			totalD+=w;
+		}
+		}
+	    }
+	    return totalD * 72 * 72;
+	} catch (FileNotFoundException e){
+	    System.exit(1);
 	}
+	return -1;
+    }
 
-	}
+
+
 	
     public static int silver(String filename){
 	
