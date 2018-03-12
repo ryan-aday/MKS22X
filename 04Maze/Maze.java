@@ -2,7 +2,7 @@ import java.util.*;
 import java.io.*;
 public class Maze{
 
-    private char[][]maze;
+    private char[][] maze;
     private boolean animate;//false by default
     private int col;
     private int row;
@@ -45,12 +45,64 @@ public class Maze{
 	    String outLine = out.nextLine();
 	    for (int c = 0;c < outLine.length();c++){
 		if (oLine.charAt(c) == 'S'){
-		    Sx=c;
-		    Sy=r;
+		    sX=c;
+		    sY=r;
 		}
 		Maze[r][c] = outLine.charAt(c);
 	    }
 	    r++;
 	}
+    	if (!check()){
+	    throw new IllegalStateException();
+	}
     }
+    
+
+    private boolean check(){
+	int numS = 0;
+	int numE = 0;
+	for (int r=0; r<maze.length; r++){
+	    for (int c=0; c<maze[r].length; c++){
+		if (maze[r][c]=='S'){
+		    numS++;
+		}
+		else if (maze[i][c]=='E'){
+		    numE++;
+		}
+	    }
+	}
+	if (numS==1 && numE==1){
+	    return true;
+	}
+	return false;
+    }
+
+    public String toString(){
+	String str = "";
+	for (int r=0; r<row; r++){
+	    for (int c=0; c<col; c++){
+		str+=maze[r][c];
+	    }
+	    str += "\n";
+	}
+	return str;
+    }
+    
+    private void wait(int millis){
+	try {
+	    Thread.sleep(millis);
+	}
+	catch (InterruptedException e) {
+	}
+    }
+
+    public void setAnimate(boolean b){	
+	animate = b;
+    }
+    
+    public void clearTerminal(){
+	//erase terminal, go to top left of screen.
+	System.out.println("\033[2J\033[1;1H");
+    }    
 }
+
