@@ -24,21 +24,24 @@ public class Maze{
       3. When the file is not found OR the file is invalid (not exactly 1 E and 1 S) then: 
          throw a FileNotFoundException or IllegalStateException
     */
-    public Maze(String filename){
+    public Maze(String filename)throws FileNotFoundException{
 	animate = false;
 	xMoves = new int[] {0,0,1,-1};
 	yMoves = new int[] {1,-1,0,0};
-	try{
+	//try{
 	    File f = new File(filename);
 	    Scanner input = new Scanner(f);
 
 	    while (input.hasNext()){
-	    String line = input.nextLine();
-	    row++;
-	    col=line.length();
+		String line = input.nextLine();
+		row++;
+		col=line.length();
 	    }
 	    
 	    maze = new char[row][col];
+	    //}catch (FileNotFoundException e){}
+	    //try{
+	    //File f=new File(filename);
 	    Scanner output = new Scanner(f);
 	    int r=0;
 	    while (output.hasNext()){
@@ -50,26 +53,25 @@ public class Maze{
 		}
 		    maze[r][c] = oLine.charAt(c);
 		}
-		r++;
+		r=r+1;
 	    }
-	    if (!check()){
+	    if (!checkMaze()){
 		throw new IllegalStateException();
 	    }
-	}
-	catch (FileNotFoundException e){}
+	    //}catch (FileNotFoundException e){}
     }
     
 
-    private boolean check(){
+    private boolean checkMaze(){
 	int numS = 0;
 	int numE = 0;
 	for (int r=0; r<maze.length; r++){
 	    for (int c=0; c<maze[r].length; c++){
 		if (maze[r][c]=='S'){
-		    numS++;
+		    numS=numS+1;
 		}
 		else if (maze[r][c]=='E'){
-		    numE++;
+		    numE=numS+1;
 		}
 	    }
 	}
@@ -108,7 +110,7 @@ public class Maze{
     }
 
    public int solve(){
-	return solve(sY, sX,0);
+	return solve(sY, sX, 0);
     }
 
     private int solve(int row, int col,int moves){
@@ -137,6 +139,15 @@ public class Maze{
     }    
 
    public static void main(String[]args){
+<<<<<<< HEAD
+       /*Maze f;
+	try {
+	    f = new Maze("data1.dat");//true animates the maze.
+	    	    f.setAnimate(true);
+	    System.out.println(f.solve());
+	} catch (FileNotFoundException e){}
+       */
+=======
        // Maze f;
 	//	try {
 	/*
@@ -145,6 +156,7 @@ public class Maze{
 	    System.out.println(f.solve());
 	    //} catch (FileNotFoundException e){}
 	    */
+>>>>>>> 311d55627f182b1dbe8f84e7f2bdb43de42a88ff
    }
 }
 

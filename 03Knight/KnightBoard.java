@@ -1,6 +1,7 @@
 public class KnightBoard{
+    
     public static void main(String[]args){
-        KnightBoard a=new KnightBoard(3, 3);
+	/*   KnightBoard a=new KnightBoard(3, 3);
 	System.out.println(a);
 	try{
 	    for (int i = 0; i < 3; i++){
@@ -81,7 +82,8 @@ public class KnightBoard{
 	System.out.println(totalSol); //prints 1728
 	KnightBoard d = new KnightBoard(5,5);
 	System.out.println(d.countSolutions(0,0)); //prints 304
-    }
+	*/
+	}
     
     private int[][] board;
     private int[] xcor;
@@ -119,7 +121,7 @@ public class KnightBoard{
 	return layout;
     }
 
-    public boolean BoardScan(){
+    public boolean checkBoard(){
 	for (int r=0; r<board.length; r++){
 	    for (int c=0; c<board[r].length;c++){
 		if (board[r][c]!=0){
@@ -135,7 +137,7 @@ public class KnightBoard{
 	    row>=board.length ||
 	    col >= board[0].length){
 	    throw new IllegalArgumentException();
-	}else if (!BoardScan()){
+	}else if (!checkBoard()){
 	    throw new IllegalStateException();
 	}return solveHelp(row, col, 1);
     }
@@ -160,19 +162,27 @@ public class KnightBoard{
 	return false;
     }
 
+    public void clear(){
+	for (int r=0; r<board.length; r++){
+	    for (int c = 0;c < board[r].length;c++){
+		board[r][c] = 0;
+	    }
+	}
+    }    
+
     private int sols;
     public int countSolutions(int row, int col){
         if (row<0 ||
 	    col<0 || 
 	    row>=board.length ||
-	    col >= board[0].length){
+	    col>=board[0].length){
 	    throw new IllegalArgumentException();
-	}else if (!BoardScan()){
+	}else if (!checkBoard()){
 	    throw new IllegalStateException();
 	}
-	sols = 0;
-	sols = countHelp(row,col,1);
-	board[row][col] = 0;
+	sols=0;
+	sols=countHelp(row, col, 1);
+	board[row][col]=0;
 	return sols;
     }
 
@@ -185,7 +195,7 @@ public class KnightBoard{
 	    board[row][col]=count;
 	    try {
 		if (board[row+xcor[r]][col+ycor[r]]==0){
-		    countHelp(row+xcor[r],col+ycor[r],count++);
+		    countHelp(row+xcor[r],col+ycor[r],count+1);
 		    board[row+xcor[r]][col+ycor[r]]=0;
 		}
 	    } catch (ArrayIndexOutOfBoundsException e){}
