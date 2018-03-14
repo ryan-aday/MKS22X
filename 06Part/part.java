@@ -22,5 +22,22 @@ public class part{
 	swap(data,s,l);
 	return l;
     }
+
+    public static String toString(int[] i){
+	String str = "";
+	for (int count=0; count<i.length; count++){
+	    str+=i[count]+ " ";
+	}
+	return str;
+    }
+
+    public static void swap(int[] data, int start, int end){
+	int temp=data[start];
+	data[start]=data[end];
+	data[end]=temp;
+    }
+
+    public static void main(String[] args){}
+
 }
 
