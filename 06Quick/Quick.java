@@ -41,9 +41,9 @@ public class Quick{
 	return quickHelp(data, k, 0, data.length-1);
     }
 
-    public static int quickHelp(int [] data, int given, int start, int end){
+    public static int quickHelp(int [] data, int i, int start, int end){
 	int pivot=partition(data, start, end);
-	while (pivot !=given){
+	/*while (pivot!=given){
 	    if (pivot>given){
 		return quickHelp(data, given, start, pivot);
 	    }
@@ -51,17 +51,42 @@ public class Quick{
 		return quickHelp(data, given, pivot+1, end);
 	    }
 	}return data[pivot];
+	*/
+	/*if (data.length!=1 && start=end-1){
+	    while (i<=gt){
+		if (data[i]==data[pivot]){
+		    i++;
+		}else if (data[i]>data[pivot]){
+		    swap(data[i], data[end]);
+		    end--;
+		}else {
+		    swap(data[i], data[start]);
+		}
+		partition (data, start, i-1);
+		partition (data, i+1, end);
+	    }
+	    }*/
     }
 
     public static void quickSort(int[] a){
-	sortHelp(a, 0, a.length - 1);
+	sortHelp(a, 0, 0, a.length - 1);
     }
 
-    public static void sortHelp(int[] a, int start,int end){
-        if (start<end){
-	    int pivot = partition(a,start,end);
-	    sortHelp(a, pivot+1,end);
-	    sortHelp(a, start, pivot-1);
+    public static void sortHelp(int[] data, int start,int end){
+	int pivot=partition(data, start, end);
+   	if (data.length!=1 && start=end-1){
+	    while (i<=gt){
+		if (data[i]==data[pivot]){
+		    i++;
+		}else if (data[i]>data[pivot]){
+		    swap(data[i], data[end]);
+		    end--;
+		}else {
+		    swap(data[i], data[start]);
+		}
+		partition (data, start, i-1);
+		partition (data, i+1, end);
+	    }
 	}
     }
 
