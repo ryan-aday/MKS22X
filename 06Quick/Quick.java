@@ -3,6 +3,10 @@ import java.lang.*;
 
 public class Quick{
     public static int partition(int[]data, int start, int end){
+	if (data.length<2){
+	    return 0;
+	}
+
 	Random rand = new Random();
 	/*
 	int step1= end-start+1;
@@ -16,15 +20,19 @@ public class Quick{
 	int le=start+1;
 	int ge=end;
 	
-	while (i<data.length && i>0 && i>=start  && i<=end){
+	while (i<data.length && i>0 && i>=start  && i<=end && 
+	       end<=data.length-1 && start>=0){
 
 	    int pivotI=rand.nextInt(end-start+1)+start;
 	    //System.out.println(pivotI);
+
+	    if (pivotI==start && pivotI==end-1){
+		return i;
+	    }
+
 	    int pivot=data[pivotI];  //How do I keep getting 12?
 	    //System.out.println(data[pivotI]);
 	    swap(data,pivotI,start);
-	    
-
 	    
 	    while (i<=ge && i>=0 && le!=ge-1){
 		if (data[i]==pivot){
@@ -68,16 +76,16 @@ public class Quick{
 
     public static int quickHelp(int [] data, int i, int start, int end){
 	int pivot=partition(data, start, end);
-	/*while (pivot!=given){
-	    if (pivot>given){
-		return quickHelp(data, given, start, pivot);
+	while (pivot!=i){
+	    if (pivot>i){
+		return quickHelp(data, i, start, pivot);
 	    }
-	    if (pivot<given){
-		return quickHelp(data, given, pivot+1, end);
+	    if (pivot<i){
+		return quickHelp(data, i, pivot+1, end);
 	    }
 	}return data[pivot];
-	*/
-	/*if (data.length!=1 && start=end-1){
+	/*
+	if (data.length!=1 && start=end-1){
 	    while (i<=gt){
 		if (data[i]==data[pivot]){
 		    i++;
@@ -90,10 +98,12 @@ public class Quick{
 		partition (data, start, i-1);
 		partition (data, i+1, end);
 	    }
-	    }*/
+	}
+	*/
+	
+	
     }
 
-<<<<<<< HEAD
     public static void quicksort(int[] a){
 	    sortHelp(a, 0, a.length - 1);
     }
@@ -103,27 +113,6 @@ public class Quick{
 	    int pivot=partition(a,start,end);
 	    sortHelp(a, pivot+1, end);   //Code is no longer viable
 	    sortHelp(a, start, pivot-1);
-=======
-    public static void quickSort(int[] a){
-	sortHelp(a, 0, 0, a.length - 1);
-    }
-
-    public static void sortHelp(int[] data, int start,int end){
-	int pivot=partition(data, start, end);
-   	if (data.length!=1 && start=end-1){
-	    while (i<=gt){
-		if (data[i]==data[pivot]){
-		    i++;
-		}else if (data[i]>data[pivot]){
-		    swap(data[i], data[end]);
-		    end--;
-		}else {
-		    swap(data[i], data[start]);
-		}
-		partition (data, start, i-1);
-		partition (data, i+1, end);
-	    }
->>>>>>> 8d57762662b1a148e1a89e2388a67336fd9e90ef
 	}
     }
 
