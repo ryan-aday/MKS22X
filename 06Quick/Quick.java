@@ -1,58 +1,47 @@
 import java.util.*;
-import java.lang.*;
-
 public class Quick{
-    public static int partition(int[]data, int start, int end){
-	if (data.length<2){
-	    return data.length;
+    public static void  partition(int[]data, int start, int end){
+	if (start>=end){
+	    return ;
 	}
-	
 	Random rand = new Random();
-	if (end-start<0){
-	    return -1;
-	}
+
+	//	System.out.println("Start: "+start+" End:  "+end);
+	int pivotI=rand.nextInt(end-start)+start;
+	//	System.out.println("Random Index: "+pivotI);
+
+	int pivot=data[pivotI];
+	//	System.out.println("Random Elm: "+pivot);	
+
+	swap(data, pivotI, start);
 	
-	int pivotI=rand.nextInt(end-start+1)+start;
-	
-	int i=pivotI;
-	int le=start+1;
+	int i=start;
+	int le=start;
 	int ge=end;
-	
-	
-	while (i<data.length && i>0 && i>=start  && i<=end && 
-	       end<=data.length-1 && start>=0){
-	    
-
-	    //System.out.println(pivotI);
-
-	    if (pivotI==le && pivotI==end-1){
-		return i;
-	    }
-
-	    int pivot=data[pivotI];  //How do I keep getting 12?
-	    //System.out.println(data[pivotI]);
-	    swap(data,pivotI,start);
-	    
-	    while (i<=ge && i>=0 && le!=ge-1){
-		if (data[i]==pivot){
-		    i++;
-		}else if (data[i]>pivot){
-		    swap(data, i, ge);
-		    ge--;
-		}else{
-		    swap(data, i, le);
-		    i++;
+		
+	while (i<=ge){
+	    if (data[i]==pivot){
+		i++;
+		//	System.out.print(toString(data));
+		//	System.out.print(le+" "+ge+"\n");
+	    }else if (data[i]>pivot){
+		swap(data, i, ge);
+		ge--;
+		//	System.out.print(toString(data));
+		//	System.out.print(le+" "+ge+"\n");
+	    }else{
+		swap(data, i, le);
+		i++;
 		le++;
-		}
+		//	System.out.print(toString(data));
+		//	System.out.print(le+" "+ge+"\n");		    
 	    }
-	    
-	    //System.out.println(i);
-	    //System.out.println(le);
-	    //System.out.println(ge);
-	    
-	    partition(data, i, ge);
-	    partition(data, le, i-1);
-	}return i;
+	}
+
+	//	System.out.println("I: "+i+" Pivot: "+pivotI+"\n");
+	if(le>0){     
+	    partition(data, start, le-1);
+	}partition(data, ge+1, end);
     }
 
     public static String toString(int[] i){
@@ -60,7 +49,7 @@ public class Quick{
 	for (int count=0; count<i.length; count++){
 	    str+=i[count]+ " ";
 	}
-	return str;
+	return str+"\n";
     }
 
     public static void swap(int[] data, int start, int end){
@@ -74,54 +63,73 @@ public class Quick{
     }
 
     public static int quickHelp(int [] data, int i, int start, int end){
-	int pivot=partition(data, start, end);
-	if (pivot>i){
-	    return quickHelp(data, i, start, pivot);
+	partition(data, start, end);
+	return data[i];
+    }
+
+    public static void quicksort(int[] data){
+	    sortHelp(data, 0, data.length-1);
+    }
+
+    public static void sortHelp(int[] data, int start,int end){
+        if (start>=end){
+	    return;
 	}
-	else if (pivot<i){
-	    return quickHelp(data, i, pivot+1, end);    
-	}else return data[pivot];
-	/*
-	if (data.length!=1 && start=end-1){
-	    while (i<=gt){
-		if (data[i]==data[pivot]){
-		    i++;
-		}else if (data[i]>data[pivot]){
-		    swap(data[i], data[end]);
-		    end--;
-		}else {
-		    swap(data[i], data[start]);
-		}
-		partition (data, start, i-1);
-		partition (data, i+1, end);
+	
+	Random rand = new Random();
+
+	//	System.out.println("Start: "+start+" End:  "+end);
+	int pivotI=rand.nextInt(end-start)+start;
+	//	System.out.println("Random Index: "+pivotI);
+
+	int pivot=data[pivotI];
+	//	System.out.println("Random Elm: "+pivot);	
+
+	swap(data, pivotI, start);
+	
+	int i=start;
+	int le=start;
+	int ge=end;
+		
+	while (i<=ge){
+	    if (data[i]==pivot){
+		i++;
+		//	System.out.print(toString(data));
+		//	System.out.print(le+" "+ge+"\n");
+	    }else if (data[i]>pivot){
+		swap(data, i, ge);
+		ge--;
+		//	System.out.print(toString(data));
+		//	System.out.print(le+" "+ge+"\n");
+	    }else{
+		swap(data, i, le);
+		i++;
+		le++;
+		//	System.out.print(toString(data));
+		//	System.out.print(le+" "+ge+"\n");		    
 	    }
 	}
-	*/
-	
-	
+
+	//	System.out.println("I: "+i+" Pivot: "+pivotI+"\n");
+	if (le>0){
+	    sortHelp(data, start, le-1);
+	}sortHelp(data, ge+1, end);
     }
 
-    public static void quicksort(int[] a){
-	    sortHelp(a, 0, a.length - 1);
-    }
-
-    public static void sortHelp(int[] a, int start,int end){
-        if (start<end){
-	    // int pivot=partition(a,start,end);
-	    //sortHelp(a, pivot+1, end);   //Code is no longer viable
-	    //sortHelp(a, start, pivot-1);
-	    partition(a, start, end);
-	}
-    }
 
     public static void main(String[] args){
-	int[] ary = new int[]{1, 4, 2};
-	    //999,999,999,4,1,0,3,2,999,999,999};
-	//System.out.println(quickselect(ary,2));
-	quicksort(ary);
-	//	System.out.println(partition(ary, 0, ary.length-1));
-	System.out.println(toString(ary));
-    }
-
+	  /*
+	int[] ary = new int[]{999,999,999,4,1,0,3,2,999,999,999};
+	System.out.println(quickselect(ary,3));
+	//	quicksort(ary);
+        ///partition(ary, 0, ary.length-1);
+	//System.out.println(toString(ary));
+	*/  
+	/*
+	int[] test = {1000, 999,999,999,4,1,0,3,2,999,999,100,100,-10000, 10212, -19212, 23, 12};
+	quicksort(test);
+	System.out.println(toString(test));
+	*/
+	}
 }
 
