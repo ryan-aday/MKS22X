@@ -1,0 +1,26 @@
+public class merge{
+    private int[] temp=int[data.length];
+
+    public static void mergesort(int[] data, int start, int end){
+	//Finding half of data
+	int mid= end-start/2;
+	System.out.println(mid);
+	    
+	mergesort(data, start, mid);
+	mergesort(data, mid+1, end);
+	
+	merge(data, temp, start, end);
+    }
+
+    public static void merge(int[] data, int temp, int start, int end){
+	if (start==end){}
+	for (int count=start; count<end; count++){
+	    pivot=data[count];
+	    for (int counte=pivot; counte<end; counte++){
+		    if (data[counte]<pivot){
+			int t=data[counte];
+			data[counte]=pivot;
+			data[counte-1]=t;
+			counte--;
+		    }
+		}
