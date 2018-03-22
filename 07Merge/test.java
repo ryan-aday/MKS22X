@@ -65,7 +65,8 @@ public class test{
     
     long startTime = System.currentTimeMillis();
     
-    mergesort((int[])args);
+    Merge.mergesort(start);
+    
      
     long elapsedTime = System.currentTimeMillis() - startTime;
     if(Arrays.equals(start,result)){
