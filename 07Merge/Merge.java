@@ -1,42 +1,58 @@
 public class Merge{
     //private int[] temp;
 
-    public static void mergesort(int[] data, int[] temp, int start, int end){
+    public static void mergesort(int[] data, int start, int end){
 	//Finding half of data
 	if (start>=end){
 	    return ;
 	}
-	
-	for (int count=start; count<end+1; count++){
+	/*
+	for (int count=start; count<end; count++){
 	    temp[count]=data[count];
 	}
-	System.out.println(toString(data)+"\n"+toString(temp)+"\n");
+	*/
+	//	System.out.println(toString(data)+"\n"+toString(temp)+"\n");
 	int mid= ((end-start)/2)+start;
 	//	System.out.println(mid);
 	
-	mergesort(temp, data, start, mid);
-	mergesort(temp, data, start, end);
-	merge(data, temp, start, mid, end);
+	mergesort(data, start, mid);
+	mergesort(data, mid+1, end);
+	merge(data, start, mid, end);
     }
     
-    public static void merge(int[] data, int[] temp, int start, int mid, int end){
-	System.out.println("Working...");
-	int c=start;
-	int d=mid+1;
+    public static void merge(int[] data, int start, int mid, int end){
+	int[] tempOne=new int[mid-start+1];
+	int[] tempTwo=new int[end-mid];
 
-	while (c<=mid && d<=end){
-	    for(int count=start; count<=end; count++){
-		if (data[c]>=data[d]){
-		    temp[count]=data[c];
-		    c++;
-		    System.out.println(c);
-		}else{
-		    temp[count]=data[d];
-		    d++;
-		    System.out.println(c);
+	for (int ca=0; ca<tempOne.length; ca++)
+            tempOne[ca] = data[start+ca];
+        for (int da=0; da<tempTwo.length; da++)
+            tempTwo[da] = data[mid+1+da];
 
-		}
-	    }data=temp;
+	//System.out.println("Working...");
+	int c=0;
+	int d=0;
+	int e=start;
+
+	while (c<mid-start+1 && d<end-mid){
+	    if (tempOne[c]<=tempTwo[d]){
+		data[e]=tempOne[c];
+		c++;
+	    }else{
+		data[e]=tempTwo[d];
+		d++;
+	    }e++;
+	}
+	while (c<mid-start+1){
+	    data[e]=tempOne[c];
+	    c++;
+	    e++;
+	}
+	
+	while (d<end-mid){
+	    data[e]=tempTwo[d];
+	    d++;
+	    e++;
 	}
 	
 	/*while (c<mid && d<end){
@@ -102,9 +118,9 @@ public class Merge{
     }
 
     public static void main(String[] args){
-	int[] ary= {86,	70};
+	int[] ary= {23,1274,231,324,23,23,9112,19,10};
 	int[] temp= new int[2];
-	mergesort(ary, temp, 0, 1);
-	System.out.println(ary);
+	mergesort(ary, 0, ary.length-1);
+	System.out.println(toString(ary));
     }
 }
