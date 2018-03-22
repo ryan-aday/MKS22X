@@ -61,8 +61,8 @@ public class Merge{
     }
 
     public static void main(String[] args){
-	int[] ary= {23,1274,231,324,23,23,9112,19,10};
-	mergesort(ary);
-	System.out.println(toString(ary));
+	//	int[] ary= {23,1274,231,324,23,23,9112,19,10};
+	//mergesort(ary);
+	//System.out.println(toString(ary));
     }
 }
