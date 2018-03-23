@@ -10,6 +10,10 @@ public class Merge{
 	    return ;
 	}
 
+	if (end-start<=69){
+	    insertionSort(data, start, end);
+	}
+
 	int mid= ((end-start)/2)+start;
 	
 	mergeSort(data, start, mid);
@@ -51,6 +55,19 @@ public class Merge{
 	    e++;
 	}
     }
+
+    public static void insertionSort(int[] data, int start, int end){
+	for (int count=start; count<=end; count++){
+	    int min=data[count];
+	    int comp=count-1;
+	    while(comp >=0  && data[comp]>min){
+		data[comp+1]=data[comp];
+		comp--;
+	    }
+	    data[comp+1]=min;
+	}
+    }
+
 
     public static String toString(int[] i){
 	String str = "";
