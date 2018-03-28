@@ -1,0 +1,26 @@
+public class Node{
+    Node next, prev;
+    int data;
+
+    public Node getNext(){
+	return next;
+    }
+
+    public Node getPrev(){
+	return prev;
+    }
+
+    public int getValue(){
+	return data;
+    }
+
+
+    public void setValue(int val){
+	data=val
+    }
+
+    public String toString(){
+        return (String)data;
+    }
+    
+}
