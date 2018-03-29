@@ -2,6 +2,12 @@ public class Node{
     Node next, prev;
     int data;
 
+   public Node(int d,Node next,Node prev){
+        data = d;
+	this.next = next;
+	this.prev = prev;
+    }
+
     public Node getNext(){
 	return next;
     }
@@ -14,13 +20,13 @@ public class Node{
 	return data;
     }
 
-
     public void setValue(int val){
-	data=val
+	data=val;
     }
 
     public String toString(){
-        return (String)data;
+	String str = "";
+	str += this.getValue();
+	return str;
     }
-    
 }
