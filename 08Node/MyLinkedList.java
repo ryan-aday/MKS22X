@@ -39,6 +39,11 @@ public class MyLinkedList{
 	return length;
     }
 
+    public int clear(){
+	first.setPrev(null);
+	first.setNext(null);
+    }
+
     //Add Functions
     public boolean add(int value){
 	if (isEmpty()){
