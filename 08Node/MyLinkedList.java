@@ -1,10 +1,8 @@
 public class MyLinkedList{
     private Node first;
-    private Node current;
     private Node last;
     private int length;
-    //Node[] listboi;
-    
+        
     public static void main(String[]args){
 	MyLinkedList a=new MyLinkedList();
 	System.out.println(a.isEmpty());
@@ -61,6 +59,121 @@ public class MyLinkedList{
 	}return true;
     }
     
+    public void add(int n, int value){
+	if(n>= 0 && n<=size()){
+	    Node c = new Node();
+	    c.setValue(value);
+	    if(n==0){
+		if(size()==0){
+		    first.setNext(last);
+		    last.setPrev(first);
+		    first.setValue(value);
+		}else if(length==1){
+		    last.setValue(first.getValue());
+		    first.setValue(value);
+		}else{
+		    c.setNext(first);
+		    first.setPrev(c);
+		    first=c;
+		}
+	    }else if(n==size()){
+		if(size()==1){
+		    last.setValue(value);
+		}else{
+		    c.setPrev(last);
+		    last.setNext(c);
+		    last=c;
+		}
+	    }else{
+		Node bef= getNode(n-1);
+		Node aft= getNode(n);
+		bef.setNext(c);
+		aft.setPrev(c);
+	        c.setPrev(bef);
+	        c.setNext(aft);
+	    }
+	    length++;
+	}else{
+	    throw new IndexOutOfBoundsException();
+	}
+    }
+
+    public int remove(int n){
+	if(n>=0 && n<size()){
+	    int t = 0;
+	    Node c = getNode(n);
+	    if(n==0){
+		t=first.getValue();
+		if(size()==1){
+		    first.setNext(null);
+		    last.setPrev(null);
+		    first.setValue(null);
+		}else if(length==2){
+		    first.setValue(last.getValue());
+		    last.setValue(null);
+		}else{
+		    c.getNext().setPrev(null);
+		    first = c.getNext();
+		}
+	    }else if(n==size()-1){
+		t=c.getValue();
+		if(size()==2){
+		    c.setValue(null);
+		}else{
+		    c.getPrev().setNext(null);
+		    last=c.getPrev();
+		}
+	    }else{
+		t=c.getValue();
+		c.getPrev().setNext(c.getNext());
+		c.getNext().setPrev(c.getPrev());
+	    }
+	    length--;
+	    return t;
+	}else{
+	    throw new IndexOutOfBoundsException();
+	}
+    }
+
+    public boolean remove(Integer value){
+	if(first.getValue()==value){
+	    if(size()==1){
+		first.setNext(null);
+		last.setPrev(null);
+	    }else if(size()==2){
+		first.setValue(last.getValue());
+		last.setValue(null);
+	    }else{
+		first.getNext().setPrev(null);
+		first=first.getNext();
+	    }
+	    length--;
+	    return true;
+	}else{
+	    Node c=first;
+	    for(int d=0; d<length-1; d++){
+		if(c.getValue() == value){
+		    c.getPrev().setNext(c.getNext());
+		    c.getNext().setPrev(c.getPrev());
+		    length--;
+		    return true;
+		}
+		c=c.getNext();
+	    }
+	    if(c.getValue()==value){
+		if(length==2){
+		    last.setValue(null);
+		}else{
+		    c.getPrev().setNext(null);
+		    last=c.getPrev();
+		}
+		length--;
+		return true;
+	    }
+	}
+	return false;
+    }
+
     //get, set methods
 
     public int get(int n){
@@ -86,7 +199,7 @@ public class MyLinkedList{
 	}else {
 	    Node c=first;
 	    int t=0;
-	    for (int d=0; d<size()-1; x++){
+	    for (int d=0; d<size()-1; d++){
 		if (c.getValue()==value){
 		    return d;
 		}

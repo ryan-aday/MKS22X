@@ -1,11 +1,13 @@
 public class Node{
-    Node next, prev;
-    int data;
+    private Node next, prev;
+    private Integer data;
 
-   public Node(int d,Node next,Node prev){
+   public Node(){
+       /*
         data = d;
 	this.next = next;
 	this.prev = prev;
+       */
     }
 
     public void setPrev(Node pre){
@@ -28,7 +30,7 @@ public class Node{
 	return data;
     }
 
-    public void setValue(int val){
+    public void setValue(Integer val){
 	data=val;
     }
 
