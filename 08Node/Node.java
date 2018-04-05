@@ -8,6 +8,14 @@ public class Node{
 	this.prev = prev;
     }
 
+    public void setPrev(Node pre){
+	prev=pre;
+    }
+
+    public void setNext(Node nex){
+	next=nex;
+    }
+
     public Node getNext(){
 	return next;
     }
