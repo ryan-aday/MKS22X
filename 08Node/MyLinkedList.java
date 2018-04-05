@@ -18,33 +18,13 @@ public class MyLinkedList{
 	System.out.println(a.toString());
     }	
     
-    
     public MyLinkedList(){
-	first=null;
-	current=first;
+	first=new Node();
+	last=new Node();
 	length=0;
     }
-    
-    public boolean isEmpty(){
-	return first==null;
-    }
 
-    public int size(){
-	return length;
-    }
-
-    public boolean add(int value){
-	if (isEmpty()){
-	    first=new Node(value, null, null);
-	    last=first;
-	    length++;
-	    return true;
-	}
-	first=new Node(value, last, null);
-	last=first.getNext();
-	length++;
-	return true;
-    }
+    //Misc Functions
 
     public String toString(){
 	String a="";
@@ -53,42 +33,77 @@ public class MyLinkedList{
 	}return a;
     }
     
+    public boolean isEmpty(){
+	return first==null || length==0;
+    }
+
+    public int size(){
+	return length;
+    }
+
+    //Add Functions
+    public boolean add(int value){
+	if (isEmpty()){
+	    first.setNext(last);
+	    last.setPrev(first);
+	    first.setValue(value);
+	    length++;
+	}else if (length==1){
+	    last.setValue(value);
+	    length++;
+	}else{
+	    Node next=new Node();
+	    last.setNext(next);
+	    next.setPrev(last);
+	    last=next;
+	    last.setValue(value);
+	    length++;
+	}return true;
+    }
+    
+    //get, set methods
+
     public int get(int n){
-	if (first==null){
-	    throw new IndexOutOfBoundsException();
-	}
-	Node temp=first;
-	for (int c=0; c<n-1; c++){
-	    temp=temp.getNext();
-	}
-	if (temp==null){
-	    throw new IndexOutOfBoundsException();
-	}
-	return temp.getValue();
+	if (size()>0 && n>=0 && n<length){
+	    return getNode(n).getValue();
+	}else throw new IndexOutOfBoundsException();
     }
 
-
-    /*
-    public void set(int index,int value){
-       	if (index>size() || index<0){
-	    throw new IndexOutOfBoundsException();
-	}
-	listboi[index]=value;
+    public int set(int n, int value){
+	if (size()>0 && n>=0 && n<size()){
+	    Node c=getNode(n);
+	    int t=c.getValue();
+	    c.setValue(value);
+	    return t;
+	}else throw new IndexOutOfBoundsException();
     }
 
-
-
-    public boolean add(int index, int value){
-	if (index<0){
-	    throw new IndexOutOfBoundsException();
-	}
-	listboi[size()]=value;
-	length++;
-	return true;
+    public int indexOf(int value){
+	if (size()==1){
+	    if (first.getValue()==value){
+		return 0;
+	    }   
+	}else {
+	    Node c=first;
+	    int t=0;
+	    for (int d=0; d<size()-1; x++){
+		if (c.getValue()==value){
+		    return d;
+		}
+		c=c.getNext();
+		t++;
+	    }
+	    if (c.getValue()==value){
+		return t;
+	    }
+	}return -1;
+    }
+    
+    private Node getNode(int n){
+	Node c=first;
+	for(int d=0; d<n; d++){
+	    c=c.getNext();
+	}return c;
     }
 
-    public boolean remove(int index){
-	return true;
-    }
-    */
 }
