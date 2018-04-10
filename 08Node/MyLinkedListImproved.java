@@ -1,19 +1,19 @@
-public class MyLinkedListImproved<T>{
+public class MyLinkedListImproved<T extends Comparable <T>>{
     private Node first;
     private Node last;
     private int length;
         
     public static void main(String[]args){
+	
 	MyLinkedList a=new MyLinkedList();
 	System.out.println(a.isEmpty());
-	System.out.println(a.size());
 	a.add(2);
-	System.out.println(a.isEmpty());
 	a.add(1);
 	a.add(0);
 		
-	System.out.println(a.get(0));
+	System.out.println(max());
 	System.out.println(a.toString());
+	
     }	
     
     public MyLinkedListImproved(){
@@ -39,12 +39,37 @@ public class MyLinkedListImproved<T>{
 	return length;
     }
     
-    public String clear(){
+    public void clear(){
 	first.setPrev(null);
 	first.setNext(null);
-	return "Fuck me silly";
+	return ;
     }
 
+    public int max(){
+	int retCou=0;
+	if (isEmpty()){
+	    return -1;
+	}else if (size()==1){
+	    return 0;
+	}else{
+	    Node current;
+	    int counter=0;
+	    T a=first.getValue();
+	    current=first;
+	    while (current.getNext()!=null){
+		if (current.getNext().compareTo(a)>0){
+		    a=current.getNext();
+		    retCou=counter;
+		}
+		counter++;
+		current=current.getNext();
+	    }
+	}return retCou;
+    }
+
+    public int min(){
+    }
+    
     //Add Functions
     public boolean add(T value){
 	if (isEmpty()){

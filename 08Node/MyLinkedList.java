@@ -4,6 +4,7 @@ public class MyLinkedList{
     private int length;
         
     public static void main(String[]args){
+	/*
 	MyLinkedList a=new MyLinkedList();
 	System.out.println(a.isEmpty());
 	System.out.println(a.size());
@@ -14,7 +15,8 @@ public class MyLinkedList{
 		
 	System.out.println(a.get(0));
 	System.out.println(a.toString());
-    }	
+	*/
+	}	
     
     public MyLinkedList(){
 	first=new Node();
