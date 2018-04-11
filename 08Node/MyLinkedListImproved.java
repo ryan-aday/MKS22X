@@ -1,25 +1,48 @@
-public class MyLinkedListImproved<T extends Comparable <T>>{
+import java.util.*;
+import java.util.Iterator;
+
+public class MyLinkedListImproved<T extends Comparable<T>> implements Iterable<T>{
     private Node first;
     private Node last;
     private int length;
         
     public static void main(String[]args){
-	
-	MyLinkedList a=new MyLinkedList();
-	System.out.println(a.isEmpty());
-	a.add(2);
-	a.add(1);
-	a.add(0);
-		
-	System.out.println(max());
-	System.out.println(a.toString());
-	
     }	
     
     public MyLinkedListImproved(){
 	first=new Node();
 	last=new Node();
 	length=0;
+    }
+
+    //Iterator
+    public Iterator<T> iterator(){
+	return new LinkedListIterator(this.first);
+    }
+
+    private class LinkedListIterator implements Iterator<T>{
+	private Node current;
+
+	public LinkedListIterator(Node cur){
+	    current = cur;
+	}
+
+	public boolean hasNext(){
+	    return current.getNext() == null;
+	}
+
+	public void remove(){
+	    throw new UnsupportedOperationException();
+	}
+
+	public T next(){
+	    if (hasNext()){
+		current = current.getNext();
+	    }else{
+		System.exit(0);
+	    }
+	    return current.getPrev().getValue();
+	}
     }
 
     //Misc Functions
@@ -46,28 +69,37 @@ public class MyLinkedListImproved<T extends Comparable <T>>{
     }
 
     public int max(){
-	int retCou=0;
-	if (isEmpty()){
+	if(size() == 0){
 	    return -1;
-	}else if (size()==1){
-	    return 0;
-	}else{
-	    Node current;
-	    int counter=0;
-	    T a=first.getValue();
-	    current=first;
-	    while (current.getNext()!=null){
-		if (current.getNext().compareTo(a)>0){
-		    a=current.getNext();
-		    retCou=counter;
-		}
-		counter++;
-		current=current.getNext();
+	}
+	int index = 0;
+	T maxVal = first.getValue();
+	Node d = first;
+	for(int c=0; c<size();c++){
+	    if(maxVal.compareTo(d.getValue()) < 0){
+		maxVal=d.getValue();
+		index=c;
 	    }
-	}return retCou;
+	    d=d.getNext();
+	}
+	return index;
     }
 
     public int min(){
+	if(size() == 0){
+	    return -1;
+	}
+	int index = 0;
+	T minVal = first.getValue();
+	Node d = first;
+	for(int c=0; c<size();c++){
+	    if(minVal.compareTo(d.getValue()) > 0){
+		minVal=d.getValue();
+		index=c;
+	    }
+	    d=d.getNext();
+	}
+	return index;
     }
     
     //Add Functions
