@@ -7,7 +7,7 @@ public class MyLinkedListImproved<T extends Comparable<T>> implements Iterable<T
     private int length;
         
     public static void main(String[]args){
-	MyLinkedListImproved<Integer> a=new MyLinkedListImproved<Integer>();
+	/*MyLinkedListImproved<Integer> a=new MyLinkedListImproved<Integer>();
 	a.add(0);
 	a.add(1);
 	a.add(2);
@@ -21,6 +21,7 @@ public class MyLinkedListImproved<T extends Comparable<T>> implements Iterable<T
 	b.add(9);
 	a.extend(b);
 	System.out.println(a.toString());
+	*/
     }	
     
     public MyLinkedListImproved(){
@@ -117,8 +118,14 @@ public class MyLinkedListImproved<T extends Comparable<T>> implements Iterable<T
     }
 
     public void extend(MyLinkedListImproved<T> d){
-	last.setNext(d.first.getNext());
-	length=length+d.size();
+	last.setNext(d.first);
+	d.first.setPrev(last);
+	int aSize=d.size();
+	length+=aSize;
+	last=d.last;
+	d.length=0;
+	d.first=null;
+	d.last=null;
     }
     
     //Add Functions
