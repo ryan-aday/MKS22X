@@ -9,23 +9,31 @@ public class Sort{
 	/*
 	  -make "buckets" for data needed
 	*/
+	int max=data.max();
+        int maxdig=data.get(max).toString().length();
+	for (int j=0; j<maxdig; j++){
+	    @SuppressWarnings("unchecked") MyLinkedListImproved<Integer>[] arr=new MyLinkedListImproved[10];
+	    for(int i=0;i<arr.length;i++){
+		arr[i]=new MyLinkedListImproved<Integer>();
+	    }
+	    for(Integer v:data){
+		//int i=getDigit(j, v);
+		//getDigit(int i,Integer num)
+		double n=v%(Math.pow(10,j));
+		n=n/(Math.pow(10,j-1));
+		//return (int)n;
 
-	@SuppressWarnings("unchecked")		
-	ArrayList<LinkedList<Integer>> d=new ArrayList<Integer> [10];
-
-
-	
-	//	@suppressWarnings("unchecked")MyLinkedListImproved<Integer>[] b=new MyLinkedListImproved[10];
-	for(int c=0; c<((Integer)data.max()/(Math.pow(10,(Math.log(data.size())*10.0/10.0)))); c++){
-	    for(Integer elem : data){
-		b[(elem / (int)Math.pow(10.0, c)) % 10].add(elem);
+		arr[(int)n].add(v);
 	    }
 	    data.clear();
-	    for(int i = 0; i < b.length; i++){
-		data.extend(b[i]);
+	    for(int i=0;i<arr.length;i++){
+		data.extend(arr[i]);
 	    }
 	}
-    }   
+	
+    }
+
+
     public static void main(String[] args){
 	MyLinkedListImproved a=new MyLinkedListImproved<Integer>();
      	a.add(0);
