@@ -52,8 +52,8 @@ public class Sorts{
     }
 
     public static void main(String[] args){
-	/*	@SuppressWarnings("unchecked")
-	    MyLinkedListImproved a = new MyLinkedListImproved();
+	/*
+	MyLinkedListImproved a = new MyLinkedListImproved();
 	a.add(12);
 	a.add(-23);
 	a.add(23);
