@@ -3,56 +3,48 @@ import java.util.Arrays;
 
 public class Sorts{
     
-    public static void radixsort(MyLinkedListImproved<Integer> data)
-    {
-	//sudo code
-	/*
-	  -make "buckets" for data needed
-	*/
-	int max=data.max();
-        int maxdig=data.get(max).toString().length();
-	for (int j=0; j<maxdig; j++){
-	    @SuppressWarnings("unchecked") MyLinkedListImproved<Integer>[] arr=new MyLinkedListImproved[10];
-	    for(int i=0;i<arr.length;i++){
-		arr[i]=new MyLinkedListImproved<Integer>();
+    public static void radixsort(MyLinkedListImproved<Integer> data){
+	if (data.size() > 0){
+	    @SuppressWarnings("unchecked")
+		MyLinkedListImproved<Integer>[]pos = new MyLinkedListImproved[10];
+	    @SuppressWarnings("unchecked")
+		MyLinkedListImproved<Integer>[] neg= new MyLinkedListImproved[10];
+	    for(int c=0; c< 10; c++){
+		pos[c] = new MyLinkedListImproved<Integer>();
+		neg[c] = new MyLinkedListImproved<Integer>();
 	    }
-	    for(Integer v:data){
-		//int i=getDigit(j, v);
-		//getDigit(int i,Integer num)
-		double n=v%(Math.pow(10,j));
-		n=n/(Math.pow(10,j-1));
-		//return (int)n;
-
-		arr[(int)n].add(v);
+	    int max = data.get(data.max());
+	    int min = data.get(data.min());
+	    int passes;
+	    if(Math.abs(max)>=Math.abs(min)){
+		passes=(int)(Math.log10(max));
 	    }
-	    data.clear();
-	    for(int i=0;i<arr.length;i++){
-		data.extend(arr[i]);
+	    else{
+		passes=(int)(Math.log10(min*-1));
+	    }
+	    for(int d=0; d<passes; d++){
+		for(Integer e:data){
+		    if(e>= 0){
+			int index=(int)((e/ Math.pow(10,d))% 10);
+			pos[index].add(e);
+		    }
+		    else{
+			int index= (int)((e*-1/Math.pow(10,d))% 10);
+			neg[index].add(e);
+		    }
+		}
+		data.clear();
+		for(int f=neg.length-1; f>0; f--){
+		    data.concat(neg[f]);
+		}
+		for(int g=0; g<pos.length;g++){
+		    data.concat(pos[g]);
+		}
 	    }
 	}
-	
     }
-
-
-    public static void main(String[] args){
-	/*MyLinkedListImproved a=new MyLinkedListImproved<Integer>();
-     	a.add(0);
-	a.add(1);
-	a.add(2);
-	a.add(3);
-	a.add(4);
-	MyLinkedListImproved<Integer> b=new MyLinkedListImproved<Integer>();
-	b.add(5);
-	b.add(6);
-	b.add(7);
-	b.add(8);
-	b.add(9);
-	a.extend(b);
-	System.out.println(a.toString());
-	radixsort(a);
-	System.out.println(a.toString());
-	*/
+    public static void radixsortIncludingNegatives(MyLinkedListImproved<Integer> data){ 
+	radixsort(data);
     }
-
 }
     

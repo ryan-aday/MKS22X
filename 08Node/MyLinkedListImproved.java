@@ -127,6 +127,22 @@ public class MyLinkedListImproved<T extends Comparable<T>> implements Iterable<T
 	d.first=null;
 	d.last=null;
     }
+
+   public void concat(MyLinkedListImproved<T> other){
+	if(other.size()>0){
+	    if(this.size()==0){
+		first=other.first;
+		last=other.last;
+	    }
+	    else{
+		last.setNext(other.first);
+		other.first.setPrev(last);
+		last=other.last;
+	    }
+	    length+=other.size();
+	    other.clear();
+	}
+    }
     
     //Add Functions
     public boolean add(T value){
