@@ -4,7 +4,7 @@ import java.util.Iterator;
 public class MyLinkedListImproved<T extends Comparable<T>> implements Iterable<T>{
     private Node first;
     private Node last;
-    private int length;
+    public int length;
         
     public static void main(String[]args){
 	/*MyLinkedListImproved<Integer> a=new MyLinkedListImproved<Integer>();
@@ -42,8 +42,9 @@ public class MyLinkedListImproved<T extends Comparable<T>> implements Iterable<T
 	    current = cur;
 	}
 
+
 	public boolean hasNext(){
-	    return current.getNext() == null;
+	    return last != null;
 	}
 
 	public void remove(){
@@ -51,12 +52,12 @@ public class MyLinkedListImproved<T extends Comparable<T>> implements Iterable<T
 	}
 
 	public T next(){
-	    if (hasNext()){
-		current = current.getNext();
-	    }else{
-		System.exit(0);
+	    if(hasNext()){
+		T a=last.getValue();
+		last=last.getNext();
+		return a;
 	    }
-	    return current.getPrev().getValue();
+	    throw new IndexOutOfBoundsException();
 	}
     }
 
@@ -78,8 +79,9 @@ public class MyLinkedListImproved<T extends Comparable<T>> implements Iterable<T
     }
     
     public void clear(){
-	first.setPrev(null);
-	first.setNext(null);
+	first=null;
+	last=null;
+	length=0;
 	return ;
     }
 

@@ -42,8 +42,9 @@ public class MyLinkedList{
     }
 
     public int clear(){
-	first.setPrev(null);
-	first.setNext(null);
+	first=null;
+	first=null;
+	length=0;
     }
 
     //Add Functions
