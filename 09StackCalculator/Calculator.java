@@ -1,7 +1,7 @@
 import java.util.LinkedList;
 import java.util.*;
 
-public class Eval{
+public class Calculator{
     public static double eval(String data){
         String[] edata=data.split(" ");
 	Stack<Double> s=new Stack<Double>();
@@ -60,7 +60,9 @@ public class Eval{
     }
 
     public static void main(String[] args){
+	/*
 	String str = "1 2 +";
 	System.out.println(Eval.eval(str));
-    }
+	*/    
+	}	
 }

@@ -1,0 +1,24 @@
+public class MyDeque<E>{
+    private E[]=data; 
+
+    @SuppressWarnings("unchecked")
+    public MyDeque(){
+	data=(E[])new Obeject[10];
+    }
+    public MyDeque(int initialCapacity){
+	data=(E[])new Obeject[initialCapacity];
+    }
+
+    public int size(){}
+
+    public void addFirst(E){}
+    public void addLast(E){}
+    //throw new NullPointerException();
+
+    E removeFirst(){}
+    E removeLast(){}
+    //throw new NoSuchElementException();
+	
+    E getFirst(){}
+    E getLast(){}
+    //throw new NoSuchElementException();
