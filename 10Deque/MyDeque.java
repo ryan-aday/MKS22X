@@ -54,7 +54,7 @@ public class MyDeque<E>{
 		data[f] = element;
 	    }
 	    else{
-		front--;
+		f--;
 		data[f] = element;
 	    }
 	}
@@ -88,7 +88,7 @@ public class MyDeque<E>{
 	if (size() == 0){
 	    throw new NoSuchElementException();
 	}
-	E temp=data[front];
+	E temp=data[f];
 	data[f]=null;
 	if (f==data.length - 1){
 	    f=0;
