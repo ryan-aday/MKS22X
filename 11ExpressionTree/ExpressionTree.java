@@ -23,8 +23,8 @@ public class ExpressionTree{
       if (isValue()){
 	  return Double.toString(getValue());
       }else{
-	  String a= getLeft().toString();
-	  String b= getRight().toString();
+	  String a= getLeft().toStringPostfix();
+	  String b= getRight().toStringPostfix();
 	  return a+" "+b+" "+getOp();
       }
   }
@@ -37,8 +37,8 @@ public class ExpressionTree{
       if (isValue()){
 	  return Double.toString(getValue());
       }else{
-	  String a= getLeft().toString();
-	  String b= getRight().toString();
+	  String a= getLeft().toStringPrefix();
+	  String b= getRight().toStringPrefix();
 	  return getOp()+" "+a+" "+b;
       }
   }
