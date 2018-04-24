@@ -8,7 +8,7 @@ public class MyDeque<E>{
     
     @SuppressWarnings("unchecked")
     public MyDeque(){
-	data = (E[])new Object[10];
+	data=(E[])new Object[10];
 	f=0;
 	b=0;
     }
@@ -18,7 +18,7 @@ public class MyDeque<E>{
 	if (initialCapacity < 0){
 	    throw new IllegalArgumentException();
 	}
-	data = (E[]) new Object[initialCapacity];
+	data=(E[]) new Object[initialCapacity];
 	f=0;
 	b=0;
     }
@@ -28,91 +28,67 @@ public class MyDeque<E>{
     }
 
     @SuppressWarnings("unchecked")
-   private void resize(){
-	E[] temp = (E[]) new Object[size() * 2];
-	for (int c=0; c<size(); c++){
-	    temp[c] = data[c];
+	public void resize() {
+	E[] newArr = (E[])new Object[size*2];
+	for (int i=0; i<data.length; i++){
+	    newArr[i] = data[(i+f)%data.length];
 	}
-	data=temp;
-	f=0;
-	b=size() - 1;
+	data = newArr;
+	f = 0;
+	b = size-1;
     }
     
-    public void addFirst(E element){
-	if (element == null){
+    public void addFirst(E value){
+	if (value == null){
 	    throw new NullPointerException();
 	}
-	if(size == data.length){
-		resize();
-	    }
-	if (size == 0){
-	    data[f] = element;
-	}
-	else{
-	    if (f <= 0){
-	        f = f + data.length - 1;
-		data[f] = element;
-	    }
-	    else{
-		f--;
-		data[f] = element;
-	    }
-	}
-	size++;
-    }
-
-    public void addLast(E element){
 	if (size == data.length){
 	    resize();
 	}
-	if (element == null){
+	if (size != 0){
+	    f = (f-1+data.length) % data.length;
+	}
+	data[f] = value;
+	size++;
+    }
+    
+    public void addLast(E value) {
+	if (value==null){
 	    throw new NullPointerException();
 	}
-	if (size==0){
-	    data[b] = element;
+	if (size==data.length){
+	    resize();
 	}
-	else {
-	    if (b >= data.length - 1){
-		b = b - (data.length - 1);
-		data[b] = element;
-	    }
-	    else{
-		b++;
-		data[b] = element;
-	    }
+	if (size!=0){
+	    b = (b+1) % data.length;
 	}
+	data[b]=value;
 	size++;
     }
 
     public E removeFirst(){
-	if (size() == 0){
+	if (size<1) {
 	    throw new NoSuchElementException();
 	}
 	E temp=data[f];
 	data[f]=null;
-	if (f==data.length - 1){
-	    f=0;
+	if (size>1){
+	    f=(f+1)%data.length;
 	}
-	else{
-	    f++;
-	}
-        size--;
+	size--;
 	return temp;
     }
-
-    public E removeLast(){
-	if (size()==0){
+ 
+    public E removeLast() {
+	if (size<1) {
 	    throw new NoSuchElementException();
 	}
 	E temp=data[b];
 	data[b]=null;
-	if (b==0){
-	    b=data.length - 1;
+	if (size>1){
+	    b=(b-1+data.length)%data.length;
 	}
-	else {
-	    b-=1;
-	}
-        size-=1;
+	size--;
 	return temp;
     }
 
@@ -132,20 +108,68 @@ public class MyDeque<E>{
 
     public String toString(){
     String ans = "[";
-    if(f < b){
+    if(f<b){
       for (int c=f; c< b; c++){
-        ans += data[c] + " , ";
+        ans+=data[c]+" , ";
       }
     }
     else{
       for(int c=f; c<data.length; c++){
-        ans += data[c] + ", ";
+        ans+=data[c]+", ";
       }
       for(int c=0; c<=b; c++){
-        ans += data[c] + ", ";
+        ans+=data[c]+", ";
       }
     }
-    ans = ans.substring(0, ans.length() - 2) + "]";
+    ans=ans.substring(0, ans.length()-2)+"]";
     return ans;
   }
+
+    /*
+    public static void main(String[] args) {
+	try{
+	    MyDeque<String> a = new MyDeque<>(), a1 = new MyDeque<>();
+	    ArrayList<String> b = new ArrayList<>();
+	    int size = Integer.parseInt(args[0]);
+	    for(int i = 0; i < size; i++){
+		int temp = (int)(Math.random() * 1000);
+		if(temp % 2 == 0){
+		    a.addFirst("" + temp);
+		    a1.addFirst("" + temp);
+		    b.add(0, "" + temp);
+		}
+		else{
+		    a.addLast("" + temp);
+		    a1.addLast("" + temp);
+		    b.add("" + temp);
+		}
+	    }
+	    int index = 0;
+	    boolean hasError = false;
+	    String errorEvaluation = "Errors found at these indices: ";
+	    for (String x : b){
+		if (!(x.equals(a.getFirst()))){
+		    System.out.println("The getFirst() function is incorrect at index " + index);
+		    hasError = true;
+		}
+		if (!(x.equals(a.removeFirst()))){
+		    System.out.println("There is an error at index " + index);
+		    errorEvaluation += index + ", ";
+		    hasError = true;
+		}
+		index++;
+	    }
+	    if(hasError){
+		errorEvaluation = errorEvaluation.substring(0, errorEvaluation.length() - 2);
+		System.out.println(errorEvaluation);
+		System.out.println("MyDeque: " + a1);
+		System.out.println("Actual Deque: " + b);
+	    }
+	    else{
+		System.out.println("Your deque is bug-free!");
+	    }
+	}catch (NoSuchElementException e){
+	}
+    }
+    */
 }
