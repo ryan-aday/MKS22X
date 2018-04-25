@@ -77,9 +77,16 @@ public class Merge{
 	return str+"\n";
     }
 
+
+    /*
     public static void main(String[] args){
-	//	int[] ary= {23,1274,231,324,23,23,9112,19,10};
-	//mergesort(ary);
-	//System.out.println(toString(ary));
+	int[] ary= {23,1274,231,324,23,23,9112,19,10};
+	mergesort(ary);
+	System.out.println(toString(ary));
+	int[] ar= {999,1234,23,23,23,23,9112,-1333,10};
+	mergesort(ar);
+	System.out.println(toString(ar));
+
     }
+    */
 }
