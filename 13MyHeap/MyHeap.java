@@ -1,0 +1,120 @@
+import java.util.*;
+import java.util.Arrays;
+
+public class MyHeap <T extends Comparable<T>> {
+    private int size;
+    private T[] data;
+    private boolean max;
+
+    @SuppressWarnings("unchecked")
+    public MyHeap(){
+	data = (T[])new Comparable[10];
+	max=true;
+    }
+
+    @SuppressWarnings("unchecked")
+    public MyHeap(boolean check){
+	if (check){
+	    max=true;
+	}
+	else {
+	    max=false;
+	}
+	data=(T[])new Comparable[10];
+    }
+
+    private void swap(int a, int b){
+        T temp=data[a];
+	data[a]=data[b];
+	data[b]=temp;
+    }
+
+    public int size(){
+	return size;
+    }
+
+    private void pushUp(int index){
+	if (max&&index>0){
+	    while(data[index].compareTo(data[(index-1)/2])>0){
+		swap(index,(index-1)/2);
+		index=(index-1)/2;
+	    }
+	}
+	else {
+	    if (!max&&index>0){
+		while(data[index].compareTo(data[(index-1)/2])<0){
+		    swap(index,(index-1)/2);
+		    index=(index-1)/2;
+		}
+	    }
+	}
+    }
+
+    public void add(T value){
+	if (size()==data.length){
+	    resize();
+	}
+	data[size()]=value;
+	pushUp(size());
+        size++;
+    }
+
+    private void pushDown(int index){
+	int l=(index * 2)+1;
+	int r=(index * 2)+2;
+	if (max){
+	    while(l<size()&&data[index].compareTo(data[l])<0){
+		if (data[r].compareTo(data[l])<= 0 || r>=size()){
+		    swap(index,l);
+		    index=l;
+		}
+		else {
+		    swap(index,r);
+		    index = r;
+		}
+	    }
+	}	    
+	else if (!max){
+	    while(l<size() && data[index].compareTo(data[l])>0){
+		if (data[r].compareTo(data[l])>=0 || r>=size()){
+		    swap(index,l);
+		    index=l;
+		}
+		else {
+		    swap(index,r);
+		    index=r;
+		}
+	    }
+	}
+    }
+
+    public T remove(){
+	T value = data[0];
+	swap(0, size()-1);
+        size--;
+	pushDown(0);
+	return value;
+    }
+
+    public T peek(){
+	return data[0];
+    }
+
+    @SuppressWarnings("unchecked")
+    public void resize(){
+        T[] temp=(T[])new Comparable[size*2];
+	for(int c=0; c<size(); c++){
+	    temp[c] = data[c];
+	}
+	data=temp;
+    }
+
+    public String toString(){
+	String str = "";
+	for(int c=0; c<size(); c++){
+	    str+= "[" + data[c] + "]";
+	}
+	return str;
+    }
+    public static void main(String[] args){}
+}
