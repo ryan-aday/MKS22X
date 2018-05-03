@@ -1,92 +1,82 @@
-public class Merge{
-    //private int[] temp;
-
-    public static void mergesort(int[] data){
-	mergeSort(data, 0, data.length-1);
-    }
-
-    public static void mergeSort(int[] data, int start, int end){
-	if (start>=end){
-	    return ;
-	}
-
-	if (end-start<=69){
-	    insertionSort(data, start, end);
-	}
-
-	int mid= ((end-start)/2)+start;
-	
-	mergeSort(data, start, mid);
-	mergeSort(data, mid+1, end);
-	merge(data, start, mid, end);
-    }
-    
-    public static void merge(int[] data, int start, int mid, int end){
-	int[] tempOne=new int[mid-start+1];
-	int[] tempTwo=new int[end-mid];
-
-	for (int ca=0; ca<tempOne.length; ca++)
-            tempOne[ca] = data[start+ca];
-        for (int da=0; da<tempTwo.length; da++)
-            tempTwo[da] = data[mid+1+da];
-
-	int c=0;
-	int d=0;
-	int e=start;
-
-	while (c<mid-start+1 && d<end-mid){
-	    if (tempOne[c]<=tempTwo[d]){
-		data[e]=tempOne[c];
-		c++;
-	    }else{
-		data[e]=tempTwo[d];
-		d++;
-	    }e++;
-	}
-	while (c<mid-start+1){
-	    data[e]=tempOne[c];
-	    c++;
-	    e++;
-	}
-	
-	while (d<end-mid){
-	    data[e]=tempTwo[d];
-	    d++;
-	    e++;
-	}
-    }
-
-    public static void insertionSort(int[] data, int start, int end){
-	for (int count=start; count<=end; count++){
-	    int min=data[count];
-	    int comp=count-1;
-	    while(comp >=0  && data[comp]>min){
-		data[comp+1]=data[comp];
-		comp--;
+public class Merge {
+    private static void msort(int[] data, int[] temp, int start, int end) {
+	if (end-start<11) {  // Faster sorting for smaller lists.
+	    insertionsort(data, start, end);
+	}else{
+	    int middle=(start+end)/2;
+	    if (end>start) {
+		msort(temp, data, start, middle);
+		msort(temp, data, middle + 1, end);
+		merge(data, temp, start, middle, middle + 1, end, start);
 	    }
-	    data[comp+1]=min;
+	}
+    }
+
+    private static void merge(int[] data, int[] temp, int l,
+			      int m, int q, 
+			      int h, int counter) {
+	while (l<=m && q<=h) {
+	    if (temp[l]<temp[q]) {
+		data[counter] = temp[l];
+		l++;
+		counter++;
+	    }
+
+	    else { 
+		data[counter] = temp[q];
+		q++;
+		counter++;
+	    }
+	}
+	while (l<=m){
+	    data[counter]=temp[l];
+	    l++;
+	    counter++;
+	}
+
+	while (q<=h) {
+	    data[counter]=temp[q];
+	    q++;
+	    counter++;
 	}
     }
 
 
-    public static String toString(int[] i){
-	String str = "";
-	for (int count=0; count<i.length; count++){
-	    str+=i[count]+ " ";
+   public static void mergesort(int[] data) {
+        if (data.length>1) {
+	    int[] temp = new int[data.length];
+	    for (int e=0; e<data.length; e++) {
+		temp[e] = data[e];
+	    }
+            msort(data, temp, 0, data.length - 1);
+        }
+    }
+
+    private static void insertionsort(int[] data, int start, int end) {
+	int s,e;
+	
+	for (int a=start+1; a<=end; a++) {
+	    s=data[a];
+
+	    for (e=a; e>start && s<data[e-1]; e--) {
+		data[e]=data[e-1];
+	    }
+
+	    data[e] = s;
 	}
-	return str+"\n";
     }
 
-
-    /*
-    public static void main(String[] args){
-	int[] ary= {23,1274,231,324,23,23,9112,19,10};
-	mergesort(ary);
-	System.out.println(toString(ary));
-	int[] ar= {999,1234,23,23,23,23,9112,-1333,10};
-	mergesort(ar);
-	System.out.println(toString(ar));
-
+    private static void swap(int[] data, int a, int b) {
+	int storage = data[a];
+	data[a] = data[b];
+	data[b] = storage;
     }
-    */
+		    
+    private static void print(int[] data) {
+        String temp="";
+        for (int num: data) {
+            temp+=num + " ";
+        }
+        System.out.println(temp);
+    }
 }
