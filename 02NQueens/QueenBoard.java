@@ -1,7 +1,7 @@
 public class QueenBoard{
     public static void main(String[]args){
-	QueenBoard a=new QueenBoard(11);
-	System.out.println(a.toString());
+	//	QueenBoard a=new QueenBoard(11);
+	//System.out.println(a.toString());
 	/*		
 	//	a.addQueen(0,0);
 	System.out.println(a.toString());
