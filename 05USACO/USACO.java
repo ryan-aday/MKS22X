@@ -2,167 +2,171 @@ import java.util.*;
 import java.io.*;
 
 public class USACO{
-    public static void main(String[] args){
-	//System.out.println(silver("ctravel.2.in")); 
-	
+    public USACO(){
     }
-    
+
     public static int bronze(String filename){
-	File f = new File(filename);
+	File f=new File(filename);
 	try {
-	    Scanner in = new Scanner(f);
-	    String line = in.nextLine();
-	    String[] array = line.split(" ");
-	    int row = Integer.parseInt(array[0]);
-	    int col = Integer.parseInt(array[1]);
-	    int water = Integer.parseInt(array[2]);
-	    int moves = Integer.parseInt(array[3]);
-	    int[][] board = new int[row][col];
-	    for (int r = 0; r<row; r++){
-		for (int c = 0;c < col;c++){
-		    board[r][c] = Integer.parseInt(in.next());
-		}
+	Scanner in=new Scanner(f);
+	String line=in.nextLine();
+	String[] ary=line.split(" ");
+	int row=Integer.parseInt(ary[0]);
+	int col=Integer.parseInt(ary[1]);
+	int level=Integer.parseInt(ary[2]);
+	int moves=Integer.parseInt(ary[3]);
+	int[][] board = new int[row][col];
+	for (int r=0; r<row; r++){
+	    for (int c = 0;c < col;c++){
+		board[r][c] = Integer.parseInt(in.next());
 	    }
-	    while (moves!=0){
-	    int rS = Integer.parseInt(in.next()) - 1;
-	    int cS = Integer.parseInt(in.next()) - 1;
+	}
+	while (moves != 0){
+	    int rs = Integer.parseInt(in.next()) - 1;
+	    int cs = Integer.parseInt(in.next()) - 1;
 	    int stomp = Integer.parseInt(in.next());
 	    int max = 0;
 	    try {
-		for (int ro=0; ro<3; ro++){
-		    for (int co=0; co<3; co++){
-			max = Math.max(board[rS+ro][cS+co],max);
+		for (int r = 0; r<3; r++){
+		    for (int c = 0;c < 3;c++){
+			max = Math.max(board[rs+r][cs+c],max);
 		    }
 		}
-	    } 
-	    catch (ArrayIndexOutOfBoundsException e){}
-	    
-	    //stamp(rS,cS,board,max,stomp);
-	    moves--;
-	    }
-	    
-	    int totalD = 0;
-	    for (int rr=0; rr<board.length; rr++){
-		for (int cc=0; cc<board[rr].length; cc++){
-		    int w = water-board[rr][cc];
-		    if (w>0){
-			totalD+=w;
-		}
+	    } catch (ArrayIndexOutOfBoundsException e){}
+	    stomp(rs,cs,board,max,stomp);
+	    moves -= 1;
+	}
+	int depth=0;
+	for (int r=0; r<board.length; r++){
+	    for (int c=0; c<board[r].length; c++){
+		int h=level-board[r][c];
+		if (h>0){
+		    depth += h;
 		}
 	    }
-	    return totalD * 72 * 72;
+	}
+	return depth*72*72;
 	} catch (FileNotFoundException e){
 	    System.exit(1);
 	}
 	return -1;
     }
-
-    public static String toString(int[][] board){
-	String line = "";
-	for (int row=0; row<board.length; row++){
-	    for (int col=0; col<board[row].length;col++){
-		line=line+board[row][col]+" ";
+    
+    public static String toString(int[][] b){
+	String str="";
+	for (int r = 0; r<b.length; r++){
+	    for (int c=0; c<b[r].length; c++){
+		str+=b[r][c];
+		str+=" ";
 	    }
-	    line+="\n";
+	    str+="\n";
 	}
-	return line;
+	return str;
+    }
+
+    public static String daOne(String[] b){
+	String str = "";
+	for (int i = 0;i < b.length;i++){
+	    str += b[i];
+	    str += " ";
+	}
+	return str;
     }
     
-    public static void stamp(int row, int col, int[][] board,
-			     int max, int stampNum){
-	for (int r = 0; r < 3; r++){
-	    for (int c=0; c<3; c++){
-		if (board[row+r][col+c]>(max - stampNum)){
-		    board[row+r][col+c]=(max - stampNum);
+    public static void stomp(int r,int c,int[][] board,int max,int stompNum){
+	for (int t=0; t<3; t++){
+	    for (int d = 0;d < 3;d++){
+		if (board[r+t][c+d]>(max-stompNum)){
+		    board[r+t][c+d]=(max-stompNum);
 		}
 	    }
 	}
     }
 
-	
     public static int silver(String filename){
-	File f = new File(filename);
+        File f = new File(filename);
 	try {
-	    Scanner inf = new Scanner(f);
-	    String[] data = inf.nextLine().split(" ");
-	    int row = Integer.parseInt(data[0]);
-	    int col = Integer.parseInt(data[1]);
-	    int moves = Integer.parseInt(data[2]);
-	    char[][] board = new char[row][col];
-
-	    for (int r=0; r<row; r++){
-		String line = inf.nextLine();
-		for (int c=0; c<col; c++){
-		    board[r][c] = line.charAt(c);
+	Scanner in = new Scanner(f);
+	String[] skrt = in.nextLine().split(" ");
+	int row = Integer.parseInt(skrt[0]);
+	int col = Integer.parseInt(skrt[1]);
+	int numOfMoves = Integer.parseInt(skrt[2]);
+	char[][] board = new char[row][col];
+	for (int i = 0;i < row;i++){
+	    String line = in.nextLine();
+	    for (int c = 0;c < col;c++){
+		board[i][c] = line.charAt(c);
+	    }
+	}
+	String[] cords = in.nextLine().split(" ");
+	int r1 = Integer.parseInt(cords[0]);
+	int c1 = Integer.parseInt(cords[1]);
+	int r2 = Integer.parseInt(cords[2]);
+	int c2 = Integer.parseInt(cords[3]);
+	int[][] helperBoard = new int[row][col];
+	int[][] helper2Board = new int[row][col];
+	for (int i = 0;i < row;i++){
+	    for (int c = 0;c < col;c++){
+		if (board[i][c] == '*'){
+		    helperBoard[i][c] = -1;
+		    helper2Board[i][c] = -1;
+		}
+		else if (i == (r1 - 1) && c == (c1 - 1)){
+		    helperBoard[i][c] = 1;
+		    helper2Board[i][c] = 1;
+		}
+		else {
+		    helperBoard[i][c] = 0;
+		    helper2Board[i][c] = 0;
 		}
 	    }
-
-	    String[] coor = inf.nextLine().split(" ");
-	    int sr = Integer.parseInt(coor[0]);
-	    int sc = Integer.parseInt(coor[1]);
-	    int er = Integer.parseInt(coor[2]);
-	    int ec = Integer.parseInt(coor[3]);
-	    int[][] oldHelp= new int[row][col];
-	    int[][] newHelp= new int[row][col];
-	  
-	    for (int ro= 0; ro<row; ro++){
-		for (int co=0; co<col; co++){
-		    if (board[ro][co] == '*'){
-			oldHelp[ro][co] = -1;
-			newHelp[ro][co] = -1;
-		    }
-		    else if (ro==(sr-1) && co== (sc-1)){
-		        oldHelp[ro][co]=1;
-			newHelp[ro][co]=1;
-		    }
-		    else {
-			oldHelp[ro][co] = 0;
-			newHelp[ro][co] = 0;
-		    }
+	}
+	for (int m = 0;m < numOfMoves;m++){
+	    for (int i = 0;i < row;i++){
+		for (int c = 0;c < col;c++){
+		    helperBoard[i][c] =  helper2Board[i][c];
 		}
 	    }
-
-	    for (int m=0; m<moves; m++){
-		for (int r=0; r<row; r++){
-		    for (int c = 0;c < col;c++){
-			oldHelp[r][c] =  newHelp[r][c];
-		    }
-		}
-		for (int r=0; r<row; r++){
-		    for (int c=0; c<col; c++){
-			try{
-			    if (newHelp[r][c]!=-1){
-				newHelp[r][c]=sumNum(r, c, oldHelp);
-			    }
-			}catch (ArrayIndexOutOfBoundsException e){
+	    for (int i = 0;i < row;i++){
+		for (int c = 0;c < col;c++){
+		    try{
+			if (helper2Board[i][c] != -1){
+			    helper2Board[i][c] = sumN(i,c,helperBoard);
 			}
+		    }catch (ArrayIndexOutOfBoundsException e){
 		    }
 		}
 	    }
-	    return  newHelp[er-1][ec-1];
+	}
+	return  helper2Board[r2 - 1][c2 - 1];
 	} catch (FileNotFoundException e){
 	    System.exit(1);
 	}
 	return -1;
     }
-    
-    private static int sumNum(int r, int c, int[][] board){
+
+    private static int sumN(int x, int y, int[][] board){
 	int[] row = new int[]{0,0,1,-1};
 	int[] col = new int[]{-1,1,0,0};
-        int sum=0;
-	for (int count=0; count<4; count++){
-	    if (isValid(r+row[count], c+col[count], board)){
-		sum+=board[r+ row[count]][c + col[count]];
+        int sum = 0;
+	for (int i = 0;i < 4;i++){
+	    if (isValid(x + row[i],y + col[i],board)){
+		sum += board[x + row[i]][y + col[i]];
 	    }
 	}
         return sum;
     }
-    
-    private static boolean isValid(int r, int c, int[][] board){
-     return !(r<0|| 
-	      r>=board.length|| 
-	      c<0|| 
-	      c>=board[0].length|| 
-	      board[r][c] == -1);
-    }   
+
+    private static boolean isValid(int x, int y, int[][] board){
+        return !(x < 0 || x >= board.length || y < 0 || y >= board[0].length || board[x][y] == -1);
+    }
+
+    /*
+    public static void main(String[] args){
+	    int b = silver("silver1.txt");
+	    System.out.println(b);
+	    System.out.println(bronze("makelake.in.txt"));
+    }
+    */
+
 }
