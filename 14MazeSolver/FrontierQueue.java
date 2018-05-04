@@ -1,1 +1,8 @@
-public class FrontierQueue{}
+import java.io.*;
+import java.util.*;
+
+public class FrontierQueue extends Frontier{
+    Queue<Location> locations;
+    
+
+}
