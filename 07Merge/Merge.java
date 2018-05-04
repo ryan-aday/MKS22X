@@ -1,6 +1,6 @@
 public class Merge {
     private static void msort(int[] data, int[] temp, int start, int end) {
-	if (end-start<11) {  // Faster sorting for smaller lists.
+	if (end-start<11) {  
 	    insertionsort(data, start, end);
 	}else{
 	    int middle=(start+end)/2;
