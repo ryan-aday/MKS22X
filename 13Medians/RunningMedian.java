@@ -4,7 +4,7 @@ public class RunningMedian{
     int size;
     
     public static void main(String[] args){}
-    
+
     @SuppressWarnings("unchecked")
     public RunningMedian(){
     big = new MyHeap(false);

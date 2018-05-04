@@ -1,5 +1,4 @@
 import java.util.*;
-import java.util.Arrays;
 
 public class MyHeap <T extends Comparable<T>> {
     private int size;
