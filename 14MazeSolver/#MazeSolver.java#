@@ -16,7 +16,7 @@ public class MazeSolver{
   //1: DFS
   public boolean solve(int mode){
       if (mode==0){
-
+	  
 	  return true;
       }
 

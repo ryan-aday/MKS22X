@@ -8,16 +8,21 @@ public class Maze{
     Location start,end;
     private char[][]maze;
     
-    
-    
     /*
       YOU MUST COMPLETE THIS METHOD!!!
       YOU MUST COMPLETE THIS METHOD!!!
       YOU MUST COMPLETE THIS METHOD!!!
     */
     public Location[] getNeighbors(Location L){
+	Location[] n= new Location[];
 	return null;
+	
     }
+    
+    public Location getUp(Location L){}
+    public Location getDown(Location L){}
+    public Location getLeft(Location L){}
+    public Location getRight(Location L){}
     
     public Location getStart(){
 	return start;

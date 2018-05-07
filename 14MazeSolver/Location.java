@@ -3,6 +3,9 @@ public class Location{
     private Location previous;
 
     public Location(int Lx, int Ly, Location prev){
+	x=Lx;
+	y=Ly;
+	previous=prev;
     }
 
     public int getX(){
