@@ -19,4 +19,12 @@ public class Location{
     public Location getPrev(){
 	return previous;
     }
+
+    public boolean equals(Location n){
+	return x==n.getX() && y==n.getY();
+    }
+
+    public String toString(){
+	return "["+x+","+y+"]";
+    }
 }

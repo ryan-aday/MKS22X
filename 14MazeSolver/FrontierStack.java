@@ -1,18 +1,22 @@
 import java.util.*;
-import java.io.*
+import java.io.*;
 
-public class FrontierStack{
-    Stack<Location> locations;
-
-    public void add(Location L){
-	locations.push(L);
+public class FrontierStack implements Frontier{
+    private Stack<Location> locs;
+    
+    public FrontierStack(){
+	locs=new Stack<Location>();
     }
-
+    
     public Location next(){
-	Location[] LOC=Maze.getNeighbors();
-	for (int a=0; a<LOC.length; a++){
-	    locations
-	    return LOC[a];
-	}
+	return locs.pop();
+    }
+    
+    public void add(Location n){
+	locs.add(n);
+    }
+    
+    public boolean hasNext(){
+	return locs.size()!=0;
     }
 }

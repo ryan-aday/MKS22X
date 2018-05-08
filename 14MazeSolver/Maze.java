@@ -13,16 +13,37 @@ public class Maze{
       YOU MUST COMPLETE THIS METHOD!!!
       YOU MUST COMPLETE THIS METHOD!!!
     */
+   
     public Location[] getNeighbors(Location L){
-	Location[] n= new Location[];
-	return null;
 	
+	Location[] neighbors = new Location[4];
+	int x = L.getX();
+	int y = L.getY();
+	int size = 0;
+	if (isValid(x-1,y)){
+	    neighbors[size] = new Location(x-1,y,L);
+	    size++;
+	}
+	if (isValid(x+1,y)){
+	    neighbors[size] = new Location(x+1,y,L);
+	    size++;
+	}
+	if (isValid(x,y-1)){
+	    neighbors[size] = new Location(x,y-1,L);
+	    size++;
+	}
+	if (isValid(x,y+1)){
+	    neighbors[size] = new Location(x,y+1,L);
+	    size++;
+	}
+	return neighbors;
     }
     
-    public Location getUp(Location L){}
-    public Location getDown(Location L){}
-    public Location getLeft(Location L){}
-    public Location getRight(Location L){}
+    private boolean isValid (int x, int y){
+	return x>=0 && x<maze.length && y>=0 && y<maze[0].length &&
+	    (maze[x][y]==' '||maze[x][y] == 'E');
+    }
+    
     
     public Location getStart(){
 	return start;
