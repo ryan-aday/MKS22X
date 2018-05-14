@@ -5,13 +5,13 @@ public class MazeSolver{
     private boolean animate;
     
     public static void main(String[]args){
-	/*	
+		
 	MazeSolver a=new MazeSolver("test2.txt");
 	System.out.println(a);
 	a.setAnimate(true);
 	a.solve(2);
 	System.out.println(a);
-	*/
+	
     }
     
     public MazeSolver(String fileName){
@@ -38,12 +38,15 @@ public class MazeSolver{
     //1: DFS
     public boolean solve(int mode){
 	//initialize your frontier
+ 	
 	if (mode == 1){
 	  frontier=new FrontierStack();
 	}else if (mode == 0) {
 	    frontier=new FrontierQueue();
 	}else if (mode == 2){
 	    frontier = new FrontierPriorityQueue();
+	}else if (mode == 3){
+	    maze.setAStar=true;
 	}
 	frontier.add(maze.getStart());
 	Location end = maze.getEnd();
@@ -58,9 +61,14 @@ public class MazeSolver{
 	    Location[] newL = maze.getNeighbors(next);
 	    for (int a=0; a<newL.length; a++){
 		Location c = newL[a];
+		if (setAStar==true){
+		    ///   
+		}
+
+		
 		if (c != null){
 		    if (c.equals(end)){
-			maze.end = new Location(maze.end.getX(),maze.end.getY(),c.getPrev(),0);
+			maze.end = new Location(maze.end.getX(),maze.end.getY(),c.getPrev(),0, 0);
 			maze.set(maze.getEnd().getX(),maze.getEnd().getY(),'E');
 			return true;
 		    }

@@ -1,8 +1,8 @@
 public class Location implements Comparable<Location>{
-    private int x,y, dist;
+    private int x,y, dist, dSF;
     private Location previous;
     
-    public Location(int Lx, int Ly, Location prev, int dist){
+    public Location(int Lx, int Ly, Location prev, int dist, int dSF){
 	x=Lx;
 	y=Ly;
 	this.dist=dist;
@@ -19,6 +19,14 @@ public class Location implements Comparable<Location>{
 
     public int getDistance(){
 	return dist;
+    }
+
+    public int getDistanceSoFar(){
+	if (getPrev()==null){
+	    return 1;
+	}
+	
+	return getPrev().getDistanceSoFar()+1;
     }
 
     public Location getPrev(){
