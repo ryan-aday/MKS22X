@@ -5,11 +5,11 @@ public class MazeSolver{
     private boolean animate;
     
     public static void main(String[]args){
-	/*
-	MazeSolver a=new MazeSolver("test.txt");
+	/*	
+	MazeSolver a=new MazeSolver("test2.txt");
 	System.out.println(a);
 	a.setAnimate(true);
-	a.solve();
+	a.solve(2);
 	System.out.println(a);
 	*/
     }
@@ -42,7 +42,10 @@ public class MazeSolver{
 	  frontier=new FrontierStack();
 	}else if (mode == 0) {
 	    frontier=new FrontierQueue();
-	}frontier.add(maze.getStart());
+	}else if (mode == 2){
+	    frontier = new FrontierPriorityQueue();
+	}
+	frontier.add(maze.getStart());
 	Location end = maze.getEnd();
 	while (frontier.hasNext()){
 	    if (animate){
@@ -57,7 +60,7 @@ public class MazeSolver{
 		Location c = newL[a];
 		if (c != null){
 		    if (c.equals(end)){
-			maze.end = new Location(maze.end.getX(),maze.end.getY(),c.getPrev());
+			maze.end = new Location(maze.end.getX(),maze.end.getY(),c.getPrev(),0);
 			maze.set(maze.getEnd().getX(),maze.getEnd().getY(),'E');
 			return true;
 		    }
