@@ -1,58 +1,50 @@
-public class RunningMedian{
-    MyHeap<Double> bHeap;
-    MyHeap<Double> sHeap;
-
+public class RunningMedians{
+    MyHeap<Double> big;
+    MyHeap<Double> small;
     int size;
-    public static void main(String[] args){
-	RunningMedian test = new RunningMedian();
-	test.add(10.0);
-	test.add(2.0);
-	test.add(-15.0);
-	test.add(13.0);
-	test.add(12.0);
-	test.add(13.0);
-	test.add(20.0);
-	test.add(5.0);
-	System.out.println(test.getMedian());
-    }
+    
+    public static void main(String[] args){}
+
     @SuppressWarnings("unchecked")
-    public RunningMedian(){
-	bHeap = new MyHeap(false);
-	sHeap = new MyHeap();
+    public RunningMedians(){
+    big = new MyHeap(false);
+    small = new MyHeap();
     }
+    
     public void add(Double element){
-	if(bHeap.size() == 0 && sHeap.size() == 0){
-	    sHeap.add(element);
+	if(big.size()==0 && small.size()==0){
+	    small.add(element);
 	}
-	else if(element > sHeap.peek()){
-	    bHeap.add(element);
-	    rebalance();
+	else if(element>small.peek()){
+	    big.add(element);
+	    shift();
 	}
 	else{
-	    sHeap.add(element);
-	    rebalance();
+	    small.add(element);
+	    shift();
 	}
 	size++;
     }
-    public void rebalance(){
-	if(sHeap.size() - bHeap.size() > 1){
-	    bHeap.add(sHeap.remove());
-	}
-	else if(bHeap.size() - sHeap.size() > 1){
-	    sHeap.add(bHeap.remove());
-	}
-    }
+    
     public Double getMedian(){
-	if(bHeap.size() > sHeap.size()){
-	    return bHeap.peek();
-	}
-	else if(sHeap.size() > bHeap.size()){
-	    return sHeap.peek();
-	}
-	else{
-	    return (sHeap.peek() + bHeap.peek())/2;
+	if(big.size()>small.size()){
+	    return big.peek();
+	}else if(small.size()>big.size()){
+	    return small.peek();
+	}else{
+	    return (small.peek()+big.peek())/2;
 	}
     }
+
+    public void shift(){
+	if(small.size()-big.size()>1){
+	    big.add(small.remove());
+	}
+	else if(big.size()-small.size()>1){
+	    small.add(big.remove());
+	}
+    }
+    
     public int size(){
 	return size;
     }
