@@ -6,6 +6,7 @@ public class Location implements Comparable<Location>{
 	x=Lx;
 	y=Ly;
 	this.dist=dist;
+	this.dSF=dSF;
 	previous=prev;
     }
 
@@ -21,12 +22,8 @@ public class Location implements Comparable<Location>{
 	return dist;
     }
 
-    public int getDistanceSoFar(){
-	if (getPrev()==null){
-	    return 1;
-	}
-	
-	return getPrev().getDistanceSoFar()+1;
+    public int getSoFar(){
+	return dSF;
     }
 
     public Location getPrev(){
@@ -38,10 +35,14 @@ public class Location implements Comparable<Location>{
     }
 
     public String toString(){
-	return "["+x+","+y+"]";
+	return " "+getTotalDistance();
+    }
+
+    public int getTotalDistance(){
+	return dist+dSF;
     }
 
     public int compareTo(Location given){
-	return this.dist-given.getDistance();
+	return this.getTotalDistance()-given.getTotalDistance();
     }
 }

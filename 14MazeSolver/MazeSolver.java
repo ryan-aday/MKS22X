@@ -6,10 +6,10 @@ public class MazeSolver{
     
     public static void main(String[]args){
 		
-	MazeSolver a=new MazeSolver("test2.txt");
+	MazeSolver a=new MazeSolver("test3.txt");
 	System.out.println(a);
 	a.setAnimate(true);
-	a.solve(2);
+	a.solve(3);
 	System.out.println(a);
 	
     }
@@ -36,6 +36,8 @@ public class MazeSolver{
     //mode: required to allow for alternate solve modes.
     //0: BFS
     //1: DFS
+    //2: PriS
+    //3: ASS
     public boolean solve(int mode){
 	//initialize your frontier
  	
@@ -44,9 +46,10 @@ public class MazeSolver{
 	}else if (mode == 0) {
 	    frontier=new FrontierQueue();
 	}else if (mode == 2){
-	    frontier = new FrontierPriorityQueue();
+	    frontier=new FrontierPriorityQueue();
 	}else if (mode == 3){
-	    maze.setAStar=true;
+	    frontier=new FrontierPriorityQueue();
+	    maze.setAStar(true);
 	}
 	frontier.add(maze.getStart());
 	Location end = maze.getEnd();
@@ -60,12 +63,7 @@ public class MazeSolver{
 	    maze.set(next.getX(),next.getY(),'.');
 	    Location[] newL = maze.getNeighbors(next);
 	    for (int a=0; a<newL.length; a++){
-		Location c = newL[a];
-		if (setAStar==true){
-		    ///   
-		}
-
-		
+		Location c = newL[a];		
 		if (c != null){
 		    if (c.equals(end)){
 			maze.end = new Location(maze.end.getX(),maze.end.getY(),c.getPrev(),0, 0);
